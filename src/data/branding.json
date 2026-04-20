@@ -1,0 +1,49 @@
+{
+  "pageTitle": "Brand Identities",
+  "pageSubtitle": "Visual systems that tell stories",
+  "description": "As a brand designer I dedicate myself to understand the needs of the clients through listening and co-creation activities. Each identity is crafted to resonate with its audience while staying true to the brand's core values.",
+  "contactNote": "To view the full portfolio please write me at",
+  "email": "chiara.czhu@gmail.com",
+  "projects": [
+    {
+      "image": "assets/branding/avant-ventures.jpg",
+      "title": "Avant Ventures",
+      "category": "Corporate Identity"
+    },
+    {
+      "image": "assets/branding/fleur-du-raisin.jpg",
+      "title": "Fleur du Raisin",
+      "category": "Wine Label"
+    },
+    {
+      "image": "assets/branding/aurora-cafe.jpg",
+      "title": "Aurora Cafe",
+      "category": "Cafe Branding"
+    },
+    {
+      "image": "assets/branding/atlas-architects.jpg",
+      "title": "Atlas Architects",
+      "category": "Stationery"
+    },
+    {
+      "image": "assets/branding/toy-town.jpg",
+      "title": "Toy Town",
+      "category": "Packaging"
+    },
+    {
+      "image": "assets/branding/aurora-wellness.jpg",
+      "title": "Aurora Wellness",
+      "category": "Luxury Brand"
+    },
+    {
+      "image": "assets/branding/nexus-tech.jpg",
+      "title": "Nexus Tech",
+      "category": "Tech Startup"
+    },
+    {
+      "image": "assets/branding/daily-crumb.jpg",
+      "title": "The Daily Crumb",
+      "category": "Artisan Bakery"
+    }
+  ]
+}

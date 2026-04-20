@@ -1,0 +1,61 @@
+{
+  "pageTitle": "Photo-Graphic",
+  "description": "Photo-Graphic combines my two passions for photography and graphics. A series of photos taken in different times and cities celebrates the hidden details, the aesthetic pleasure of contrasts and colorful associations found on walls, streets, water reflections...",
+  "stats": [
+    { "value": 47, "suffix": "", "label": "Cities" },
+    { "value": 200, "suffix": "+", "label": "Photos" },
+    { "value": 12, "suffix": "", "label": "Years" }
+  ],
+  "projects": [
+    {
+      "image": "assets/photo-graphic/peeling-blue.jpg",
+      "title": "Peeling Blue",
+      "category": "Venice"
+    },
+    {
+      "image": "assets/photo-graphic/canal-reflections.jpg",
+      "title": "Canal Reflections",
+      "category": "Venice"
+    },
+    {
+      "image": "assets/photo-graphic/urban-canvas.jpg",
+      "title": "Urban Canvas",
+      "category": "Berlin"
+    },
+    {
+      "image": "assets/photo-graphic/glass-grid.jpg",
+      "title": "Glass Grid",
+      "category": "Oslo"
+    },
+    {
+      "image": "assets/photo-graphic/tile-market.jpg",
+      "title": "Tile Market",
+      "category": "Marrakech"
+    },
+    {
+      "image": "assets/photo-graphic/sicilian-alley.jpg",
+      "title": "Sicilian Alley",
+      "category": "Palermo"
+    },
+    {
+      "image": "assets/photo-graphic/puddle-mirror.jpg",
+      "title": "Puddle Mirror",
+      "category": "London"
+    },
+    {
+      "image": "assets/photo-graphic/ironwork.jpg",
+      "title": "Ironwork",
+      "category": "Barcelona"
+    },
+    {
+      "image": "assets/photo-graphic/turquoise-door.jpg",
+      "title": "Turquoise Door",
+      "category": "Marrakech"
+    },
+    {
+      "image": "assets/photo-graphic/shadow-grid.jpg",
+      "title": "Shadow Grid",
+      "category": "Milan"
+    }
+  ]
+}

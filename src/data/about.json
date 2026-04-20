@@ -1,0 +1,36 @@
+{
+  "sectionLabel": "ABOUT",
+  "portrait": "assets/about/portrait.png",
+  "portraitCaption": "fool in a good way ;)",
+  "heading": ["Hello,", "welcome to my website"],
+  "bio": [
+    "I'm Chiara, graphic designer and visual artist with a colorful and symbolic style.",
+    "While in private life I am seeking for simplicity, in my work I am used to delve into complexity. As a cross-functional designer, I believe in the blending of different disciplines, putting design at service for other realities.",
+    "Born and raised in Venice, my professional background gathers experiences among Corporate Communication at **Metadesign Berlin**, Graphic design for Architecture at **Snøhetta** Oslo & Innsbruck offices, Branding for both commercial and artistic clients, and most recently in the Global Visual Merchandising department at Bata Group.",
+    "With a dedicated passion for photography and Cultural Communication, since 2021 I am member of the Italian Association for Visual Communication **AIAP**. When I am not working I am busy with Impersonae workshops that I presented at **Kids Design Week**.",
+    "Some of my works have been showcased and rewarded at Milano Graphic Festival, **Arte Laguna Prize**, **Milano Design Week**, **IDA** International Design Awards, **Florence Biennale XV**."
+  ],
+  "links": {
+    "Metadesign Berlin": "https://metadesign.com",
+    "Snøhetta": "https://snohetta.com",
+    "AIAP": "https://aiap.it",
+    "Kids Design Week": "https://impersonae.com"
+  },
+  "awardsLabel": "EXHIBITIONS & AWARDS",
+  "awards": [
+    { "date": "October 2025", "award": "Florence Biennale XV", "project": "Project 'Impersonae'" },
+    { "date": "July 2025", "award": "Workshop 'Impersonae'", "project": "PAZ – PNNR project" },
+    { "date": "January 2024", "award": "IDA International Design Awards, Bronze in Graphic Design", "project": "'Obj-activity'" },
+    { "date": "June 2023", "award": "Ca' Select Art, Shortlisted", "project": "Montenegro Group competition (brand Select)" },
+    { "date": "January 2023", "award": "National competition Visioni Altre & G'art", "project": "'Heart on sale'" },
+    { "date": "March 2022", "award": "Milano Graphic Festival – AIAP Community", "project": "Impersonae – kaleidoscopic identities" },
+    { "date": "Sept.–Oct. 2021", "award": "Arte Laguna Prize 14th edition, Arsenale Nord Venice, Digital Graphics section", "project": "'Opportunilands'" },
+    { "date": "Sept. 2021", "award": "Milan Design Week, Park Associati Call 2, solo exhibition", "project": "'THE LUST – designeedesire'" },
+    { "date": "Jun.–Aug. 2020", "award": "IDA International Design Awards, Finalist Covid19 Innovation Design Grant", "project": "'Instantanea'" },
+    { "date": "Jun.–Aug. 2020", "award": "AIAP, exhibition Mantieni le Distance", "project": "Poster 'I Love You' selected, Spazio Illisso" },
+    { "date": "Nov. 2019", "award": "Collective exhibition Independent Artists – Water, Villa Brentano, Milan", "project": "'Distract', 'Tribute to Monet'" },
+    { "date": "July 2019", "award": "Solo exhibition 'THE LUST'", "project": "Deptford Does Art, London" },
+    { "date": "December 2016", "award": "Fondazione Bevilacqua La Masa, 100th Young Artists collective, Venice", "project": "'On Stepchild Adoption'" }
+  ],
+  "backgroundImage": "assets/about/background.jpg"
+}

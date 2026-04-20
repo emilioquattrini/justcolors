@@ -1,0 +1,70 @@
+{
+  "pageTitle": "Abstr-actions",
+  "pageSubtitle": "A deliberate blend of abstract art and design theory",
+  "description": "Explore a dynamic collection of graphic patterns, shapes, and posters. These works celebrate visual harmony while engaging the viewer with powerful, imaginative, and socially relevant themes.",
+  "featuredNote": "Opportuniland project, a series of visual metaphors linked to contingent societal and political phenomena, has been exhibited during Arte Laguna Prize 2021.",
+  "featuredLink": "https://artelagunaprize.com",
+  "featuredLinkText": "Arte Laguna Prize 2021",
+  "projects": [
+    {
+      "image": "assets/visual-arts/cut-violence-off.jpg",
+      "title": "Cut Violence Off",
+      "category": "Political Poster"
+    },
+    {
+      "image": "assets/visual-arts/opportuniland.jpg",
+      "title": "Opportuniland II",
+      "category": "Abstract"
+    },
+    {
+      "image": "assets/visual-arts/concentric-dreams.jpg",
+      "title": "Concentric Dreams",
+      "category": "Pattern"
+    },
+    {
+      "image": "assets/visual-arts/golden-hive.jpg",
+      "title": "Golden Hive",
+      "category": "Pattern"
+    },
+    {
+      "image": "assets/visual-arts/vineyard.jpg",
+      "title": "Vineyard",
+      "category": "Illustration"
+    },
+    {
+      "image": "assets/visual-arts/soft-forms.jpg",
+      "title": "Soft Forms",
+      "category": "Abstract"
+    },
+    {
+      "image": "assets/visual-arts/floral-geometry.jpg",
+      "title": "Floral Geometry",
+      "category": "Pattern"
+    },
+    {
+      "image": "assets/visual-arts/letter-a.jpg",
+      "title": "Letter A",
+      "category": "Typography"
+    },
+    {
+      "image": "assets/visual-arts/sunburst.jpg",
+      "title": "Sunburst",
+      "category": "Abstract"
+    },
+    {
+      "image": "assets/visual-arts/balance.jpg",
+      "title": "Balance",
+      "category": "Minimal"
+    },
+    {
+      "image": "assets/visual-arts/puzzle-run.jpg",
+      "title": "Puzzle Run",
+      "category": "Geometric"
+    },
+    {
+      "image": "assets/visual-arts/soft-layers.jpg",
+      "title": "Soft Layers",
+      "category": "Abstract"
+    }
+  ]
+}

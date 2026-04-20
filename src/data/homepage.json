@@ -1,0 +1,20 @@
+{
+  "title": "justcolors",
+  "tagline": "Simple colors for complex works",
+  "navItems": [
+    { "label": "About me", "path": "/about", "external": false },
+    { "label": "Visual Arts", "path": "/visual-arts", "external": false },
+    { "label": "Branding", "path": "/branding", "external": false },
+    { "label": "Photo-graphic", "path": "/photo-graphic", "external": false },
+    { "label": "Impersonae – Design-Telling", "path": "https://impersonae.com", "external": true }
+  ],
+  "email": "chiara.czhu@gmail.com",
+  "instagram": "https://instagram.com",
+  "backgroundImages": [
+    "assets/home/bg-1.jpg",
+    "assets/home/bg-2.jpg",
+    "assets/home/bg-3.jpg",
+    "assets/home/bg-4.jpg",
+    "assets/home/bg-5.jpg"
+  ]
+}
