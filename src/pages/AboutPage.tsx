@@ -50,7 +50,7 @@ export default function AboutPage() {
     
       <div
         ref={panelRef}
-        className="w-full lg:w-[55%] min-h-screen"
+        className="w-full lg:w-[55%] lg:fixed lg:right-0 lg:top-0 lg:h-screen overflow-y-auto z-20"
         style={{
           background: 'rgba(240, 237, 232, 0.75)',
           backdropFilter: 'blur(50px) saturate(110%)',
