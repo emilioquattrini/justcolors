@@ -47,11 +47,10 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
-      <div className="hidden lg:block lg:w-[45%] min-h-screen" />
-
+    
       <div
         ref={panelRef}
-        className="w-full lg:w-[55%] lg:fixed lg:right-0 lg:top-0 lg:h-screen overflow-y-auto z-20"
+        className="w-full lg:w-[55%] min-h-screen"
         style={{
           background: 'rgba(240, 237, 232, 0.75)',
           backdropFilter: 'blur(50px) saturate(110%)',
