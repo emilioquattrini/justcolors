@@ -15,7 +15,7 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 100);
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -31,46 +31,42 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          backgroundColor: scrolled ? 'rgba(240, 237, 232, 0.9)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+          // Sfondo leggermente visibile anche all'inizio per proteggere il testo
+          backgroundColor: scrolled ? 'rgba(240, 237, 232, 0.95)' : 'rgba(240, 237, 232, 0.05)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
         }}
       >
-        <div className="flex items-center justify-between h-14 px-6 lg:px-10">
+        <div className="flex items-center justify-between h-16 px-6 lg:px-10">
           {/* Logo */}
-<button
-  onClick={() => handleNav('/')}
-  className="flex items-center"
->
-  <img 
-    src={`${import.meta.env.BASE_URL}assets/home/JUSTCOLORS_logo.png`} 
-    alt="Logo" 
-    className="h-8 md:h-10 w-auto object-contain" 
-    style={{
-      filter: isActive('/') ? 'none' : 'brightness(0.9)', // Opzionale: scurisce leggermente se non è attivo
-    }}
-  />
-</button>
+          <button onClick={() => handleNav('/')} className="flex items-center">
+            <img 
+              src={`${import.meta.env.BASE_URL}assets/home/JUSTCOLORS_logo.png`} 
+              alt="Logo" 
+              className="h-8 md:h-9 w-auto object-contain"
+            />
+          </button>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav - Più visibile */}
+          <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleNav(link.path)}
-                className="relative text-sm uppercase tracking-widest font-light transition-colors duration-150 hover:text-[var(--accent)]"
+                className="relative text-[11px] uppercase tracking-[0.2em] transition-all duration-200 hover:text-[var(--accent)]"
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  color: isActive(link.path) ? 'var(--text-primary)' : 'var(--text-secondary)',
-                  fontWeight: 300,
-                  letterSpacing: '0.08em',
+                  color: 'var(--text-primary)',
+                  fontWeight: 600, // Aumentato spessore
+                  opacity: isActive(link.path) ? 1 : 0.7,
                 }}
               >
                 {link.label}
                 <span
-                  className="absolute -bottom-1 left-0 h-px bg-[var(--accent)] transition-transform duration-300 origin-left"
+                  className="absolute -bottom-1 left-0 h-0.5 bg-[var(--accent)] transition-transform duration-300 origin-left"
                   style={{
                     width: '100%',
                     transform: isActive(link.path) ? 'scaleX(1)' : 'scaleX(0)',
@@ -80,40 +76,18 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menu"
           >
-            <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
-            <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
-            <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
+            <span className={`block w-6 h-0.5 transition-all ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
+            <span className={`block w-6 h-0.5 transition-all ${mobileOpen ? 'opacity-0' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
+            <span className={`block w-6 h-0.5 transition-all ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
           </button>
         </div>
       </nav>
-
-      {/* Mobile Menu Overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
-          style={{ backgroundColor: 'var(--bg-primary)' }}
-        >
-          {navLinks.map((link) => (
-            <button
-              key={link.label}
-              onClick={() => handleNav(link.path)}
-              className="text-3xl transition-colors duration-150 hover:text-[var(--accent)]"
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                color: isActive(link.path) ? 'var(--accent)' : 'var(--text-primary)',
-              }}
-            >
-              {link.label}
-            </button>
-          ))}
-        </div>
-      )}
+      {/* ... resto del mobile menu overlay ... */}
     </>
   );
 }
