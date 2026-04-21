@@ -76,7 +76,7 @@ export default function HomePage() {
       >
         {/* Contact Bar */}
         {/* Ho ridotto pb-4 a pb-2 e mb-8 a mb-5 per diminuire i margini */}
-        <div className="flex items-center justify-between pb-2 mb-5" style={{ borderBottom: '1px solid var(--border)' }}>
+        <div className="flex flex-wrap items-center justify-between gap-6 pb-2 mb-5" style={{ borderBottom: '1px solid var(--border)' }}>
           <a
             href={`mailto:${homepageData.email}`}
             className="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
