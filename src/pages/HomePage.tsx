@@ -5,35 +5,22 @@ import { homepageData } from '../data/galleryData';
 export default function HomePage() {
   const panelRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLDivElement>(null);
   const dotsRef = useRef<HTMLDivElement>(null);
   const [activeDot, setActiveDot] = useState(0);
 
   const bgImages = homepageData.backgroundImages;
 
   useEffect(() => {
+    // Animazione entrata pannello (ora entra da destra con x: 40)
     gsap.fromTo(panelRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out', delay: 0.2 }
+      { opacity: 0, x: 40 },
+      { opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', delay: 0.2 }
     );
 
     if (logoRef.current) {
       gsap.fromTo(logoRef.current,
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out', delay: 0.4 }
-      );
-    }
-
-    if (navRef.current) {
-      const dividers = navRef.current.querySelectorAll('.nav-divider');
-      const links = navRef.current.querySelectorAll('.nav-link');
-      gsap.fromTo(dividers,
-        { scaleX: 0 },
-        { scaleX: 1, duration: 0.5, ease: 'expo.out', stagger: 0.06, delay: 0.6, transformOrigin: 'left' }
-      );
-      gsap.fromTo(links,
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out', stagger: 0.06, delay: 0.7 }
       );
     }
 
@@ -51,20 +38,13 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, [bgImages.length]);
 
-  const handleNav = (path: string, external: boolean) => {
-    if (external) {
-      window.open(path, '_blank', 'noopener,noreferrer');
-      return;
-    }
-    const nav = (window as any).__navigate;
-    if (nav) nav(path);
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-20">
+    // Spostato tutto a destra con justify-end e margini destri (pr)
+    <div className="min-h-screen flex items-center justify-end px-6 md:pr-16 lg:pr-24 py-20">
       <div
         ref={panelRef}
-        className="w-full max-w-[320px] rounded-3xl px-8 py-10 md:px-12 md:py-12"
+        // Ho allargato leggermente max-w da 320 a 380 per assicurarmi che i contatti non vadano a capo male
+        className="w-full max-w-[380px] rounded-3xl px-8 py-10 md:px-10"
         style={{
           background: 'rgba(240, 237, 232, 0.08)',
           backdropFilter: 'blur(8px) saturate(120%)',
@@ -75,15 +55,14 @@ export default function HomePage() {
         }}
       >
         {/* Contact Bar */}
-        {/* Ho ridotto pb-4 a pb-2 e mb-8 a mb-5 per diminuire i margini */}
-        <div className="flex flex-wrap items-center justify-between gap-6 pb-2 mb-5" style={{ borderBottom: '1px solid var(--border)' }}>
+        <div className="flex flex-wrap items-center justify-between gap-6 pb-2 mb-8" style={{ borderBottom: '1px solid var(--border)' }}>
           <a
             href={`mailto:${homepageData.email}`}
             className="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
             style={{ 
-              color: 'var(--text-primary)', // Cambiato da text-secondary a text-primary
+              color: 'var(--text-primary)', 
               fontSize: '13px', 
-              fontWeight: 500, // Aggiunto per maggiore visibilità
+              fontWeight: 500, 
               fontFamily: "'Inter', sans-serif" 
             }}
           >
@@ -99,9 +78,9 @@ export default function HomePage() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
             style={{ 
-              color: 'var(--text-primary)', // Cambiato da text-secondary a text-primary
+              color: 'var(--text-primary)', 
               fontSize: '13px', 
-              fontWeight: 500, // Aggiunto per maggiore visibilità
+              fontWeight: 500, 
               fontFamily: "'Inter', sans-serif" 
             }}
           >
@@ -114,7 +93,7 @@ export default function HomePage() {
           </a>
         </div>
 
-        {/* Logo */}
+        {/* Logo ed Impersonae */}
         <div ref={logoRef} className="text-center mb-10 flex flex-col items-center" style={{ opacity: 0 }}>
           <img 
             src={`${import.meta.env.BASE_URL}assets/home/JUSTCOLORS_logo.png`} 
@@ -122,47 +101,16 @@ export default function HomePage() {
             className="h-24 md:h-32 lg:h-40 object-contain mb-3" 
           />
           <p
-            className="text-sm tracking-widest"
+            className="text-sm tracking-widest uppercase"
             style={{
               fontFamily: "'Inter', sans-serif",
-              color: 'var(--text-primary)', // Cambiato da text-secondary a text-primary per maggiore contrasto
-              fontWeight: 500, // Reso leggermente più marcato
-              letterSpacing: '0.05em',
+              color: 'var(--text-primary)',
+              fontWeight: 500,
+              letterSpacing: '0.15em', // Aumentato leggermente lo spazio tra le lettere per dare più eleganza
             }}
           >
             {homepageData.tagline}
           </p>
-        </div>
-
-        {/* Navigation Menu */}
-        <div ref={navRef} className="space-y-0 mb-10">
-          {homepageData.navItems.map((item) => (
-            <div key={item.label}>
-              <div
-                className="nav-divider h-px w-full"
-                style={{ backgroundColor: 'var(--border)', transformOrigin: 'left' }}
-              />
-              <button
-                className="nav-link w-full text-left py-3 flex items-center gap-3 group transition-all duration-150 hover:text-[var(--accent)]"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '18px',
-                  fontWeight: 500, // Cambiato da 300 a 500 per rendere le scritte più spesse e visibili
-                  color: 'var(--text-primary)',
-                  opacity: 0,
-                }}
-                onClick={() => handleNav(item.path, item.external)}
-              >
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-sm">
-                  &rarr;
-                </span>
-                <span className="group-hover:translate-x-4 transition-transform duration-150">
-                  {item.label}
-                </span>
-              </button>
-            </div>
-          ))}
-          <div className="nav-divider h-px w-full" style={{ backgroundColor: 'var(--border)' }} />
         </div>
 
         {/* Progress Dots */}
