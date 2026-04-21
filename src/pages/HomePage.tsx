@@ -11,7 +11,6 @@ export default function HomePage() {
   const bgImages = homepageData.backgroundImages;
 
   useEffect(() => {
-    // Animazione entrata pannello (ora entra da destra con x: 40)
     gsap.fromTo(panelRef.current,
       { opacity: 0, x: 40 },
       { opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', delay: 0.2 }
@@ -38,19 +37,23 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, [bgImages.length]);
 
+  const handleNav = (path: string) => {
+    const nav = (window as any).__navigate;
+    if (nav) nav(path);
+  };
+
   return (
-    // Spostato tutto a destra con justify-end e margini destri (pr)
     <div className="min-h-screen flex items-center justify-end px-6 md:pr-16 lg:pr-24 py-20">
       <div
         ref={panelRef}
-        // Ho allargato leggermente max-w da 320 a 380 per assicurarmi che i contatti non vadano a capo male
         className="w-full max-w-[380px] rounded-3xl px-8 py-10 md:px-10"
         style={{
-          background: 'rgba(240, 237, 232, 0.08)',
-          backdropFilter: 'blur(8px) saturate(120%)',
-          WebkitBackdropFilter: 'blur(8px) saturate(120%)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+          // Opacità aumentata a 0.15 per maggiore visibilità
+          background: 'rgba(240, 237, 232, 0.15)',
+          backdropFilter: 'blur(12px) saturate(120%)',
+          WebkitBackdropFilter: 'blur(12px) saturate(120%)',
+          border: '1px solid rgba(255, 255, 255, 0.25)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
           opacity: 0,
         }}
       >
@@ -59,12 +62,7 @@ export default function HomePage() {
           <a
             href={`mailto:${homepageData.email}`}
             className="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
-            style={{ 
-              color: 'var(--text-primary)', 
-              fontSize: '13px', 
-              fontWeight: 500, 
-              fontFamily: "'Inter', sans-serif" 
-            }}
+            style={{ color: 'var(--text-primary)', fontSize: '13px', fontWeight: 500, fontFamily: "'Inter', sans-serif" }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -77,12 +75,7 @@ export default function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
-            style={{ 
-              color: 'var(--text-primary)', 
-              fontSize: '13px', 
-              fontWeight: 500, 
-              fontFamily: "'Inter', sans-serif" 
-            }}
+            style={{ color: 'var(--text-primary)', fontSize: '13px', fontWeight: 500, fontFamily: "'Inter', sans-serif" }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -93,24 +86,31 @@ export default function HomePage() {
           </a>
         </div>
 
-        {/* Logo ed Impersonae */}
+        {/* Logo ed Impersonae Button */}
         <div ref={logoRef} className="text-center mb-10 flex flex-col items-center" style={{ opacity: 0 }}>
           <img 
             src={`${import.meta.env.BASE_URL}assets/home/JUSTCOLORS_logo.png`} 
             alt="Justcolors Logo" 
-            className="h-24 md:h-32 lg:h-40 object-contain mb-3" 
+            className="h-24 md:h-32 lg:h-36 object-contain mb-6" 
           />
-          <p
-            className="text-sm tracking-widest uppercase"
+          
+          {/* Pulsante Impersonae */}
+          <button
+            onClick={() => handleNav('/about')}
+            className="group relative px-8 py-3 overflow-hidden rounded-full transition-all duration-300"
             style={{
-              fontFamily: "'Inter', sans-serif",
+              border: '1px solid var(--text-primary)',
               color: 'var(--text-primary)',
-              fontWeight: 500,
-              letterSpacing: '0.15em', // Aumentato leggermente lo spazio tra le lettere per dare più eleganza
             }}
           >
-            {homepageData.tagline}
-          </p>
+            <span className="relative z-10 text-xs tracking-[0.3em] uppercase font-medium">
+              {homepageData.tagline}
+            </span>
+            <div className="absolute inset-0 bg-[var(--text-primary)] translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
+            <style>{`
+              button:hover span { color: var(--bg-primary); }
+            `}</style>
+          </button>
         </div>
 
         {/* Progress Dots */}
