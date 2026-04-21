@@ -75,11 +75,17 @@ export default function HomePage() {
         }}
       >
         {/* Contact Bar */}
-        <div className="flex items-center justify-between pb-4 mb-8" style={{ borderBottom: '1px solid var(--border)' }}>
+        {/* Ho ridotto pb-4 a pb-2 e mb-8 a mb-5 per diminuire i margini */}
+        <div className="flex items-center justify-between pb-2 mb-5" style={{ borderBottom: '1px solid var(--border)' }}>
           <a
             href={`mailto:${homepageData.email}`}
             className="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
-            style={{ color: 'var(--text-secondary)', fontSize: '13px', fontFamily: "'Inter', sans-serif" }}
+            style={{ 
+              color: 'var(--text-primary)', // Cambiato da text-secondary a text-primary
+              fontSize: '13px', 
+              fontWeight: 500, // Aggiunto per maggiore visibilità
+              fontFamily: "'Inter', sans-serif" 
+            }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -92,7 +98,12 @@ export default function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 transition-colors duration-150 hover:text-[var(--accent)]"
-            style={{ color: 'var(--text-secondary)', fontSize: '13px', fontFamily: "'Inter', sans-serif" }}
+            style={{ 
+              color: 'var(--text-primary)', // Cambiato da text-secondary a text-primary
+              fontSize: '13px', 
+              fontWeight: 500, // Aggiunto per maggiore visibilità
+              fontFamily: "'Inter', sans-serif" 
+            }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="2" y="2" width="20" height="20" rx="5" />
@@ -104,17 +115,18 @@ export default function HomePage() {
         </div>
 
         {/* Logo */}
-        <div ref={logoRef} className="text-center mb-12 flex flex-col items-center" style={{ opacity: 0 }}>
+        <div ref={logoRef} className="text-center mb-10 flex flex-col items-center" style={{ opacity: 0 }}>
           <img 
             src={`${import.meta.env.BASE_URL}assets/home/JUSTCOLORS_logo.png`} 
             alt="Justcolors Logo" 
-            className="h-24 md:h-32 lg:h-40 object-contain mb-4" 
+            className="h-24 md:h-32 lg:h-40 object-contain mb-3" 
           />
           <p
             className="text-sm tracking-widest"
             style={{
               fontFamily: "'Inter', sans-serif",
-              color: 'var(--text-secondary)',
+              color: 'var(--text-primary)', // Cambiato da text-secondary a text-primary per maggiore contrasto
+              fontWeight: 500, // Reso leggermente più marcato
               letterSpacing: '0.05em',
             }}
           >
@@ -135,7 +147,7 @@ export default function HomePage() {
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: '18px',
-                  fontWeight: 300,
+                  fontWeight: 500, // Cambiato da 300 a 500 per rendere le scritte più spesse e visibili
                   color: 'var(--text-primary)',
                   opacity: 0,
                 }}
