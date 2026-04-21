@@ -106,7 +106,7 @@ export default function HomePage() {
         {/* Logo */}
         <div ref={logoRef} className="text-center mb-12 flex flex-col items-center" style={{ opacity: 0 }}>
           <img 
-            src="/assets/home/JUSTCOLORS_logo.png" 
+            src="public/assets/home/JUSTCOLORS_logo.png" 
             alt="Justcolors Logo" 
             className="h-24 md:h-32 lg:h-40 object-contain mb-4" 
           />
