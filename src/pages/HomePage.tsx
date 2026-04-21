@@ -104,18 +104,12 @@ export default function HomePage() {
         </div>
 
         {/* Logo */}
-        <div ref={logoRef} className="text-center mb-12" style={{ opacity: 0 }}>
-          <h1
-            className="text-6xl md:text-7xl lg:text-[96px] leading-none mb-4"
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 300,
-              color: 'var(--text-primary)',
-              letterSpacing: '-0.03em',
-            }}
-          >
-            {homepageData.title}
-          </h1>
+        <div ref={logoRef} className="text-center mb-12 flex flex-col items-center" style={{ opacity: 0 }}>
+          <img 
+            src="/assets/home/JUSTCOLORS_logo.png" 
+            alt="Justcolors Logo" 
+            className="h-24 md:h-32 lg:h-40 object-contain mb-4" 
+          />
           <p
             className="text-sm tracking-widest"
             style={{
