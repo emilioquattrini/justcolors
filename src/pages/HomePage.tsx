@@ -64,7 +64,7 @@ export default function HomePage() {
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
       <div
         ref={panelRef}
-        className="w-full max-w-[420px] rounded-3xl px-8 py-10 md:px-12 md:py-12"
+        className="w-full max-w-[320px] rounded-3xl px-8 py-10 md:px-12 md:py-12"
         style={{
           background: 'rgba(240, 237, 232, 0.08)',
           backdropFilter: 'blur(8px) saturate(120%)',
