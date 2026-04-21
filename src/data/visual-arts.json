@@ -8,7 +8,7 @@
   "projects": [
     {
       "image": "assets/visual-arts/objactivity.jpg",
-      "title": "obj-activity",
+      "title": "Obj-activity",
       "category": "Illustration"
     },
     {
@@ -32,39 +32,39 @@
       "category": "Political poster"
     },
     {
-      "image": "assets/visual-arts/soft-forms.jpg",
-      "title": "Soft Forms",
-      "category": "Abstract"
+      "image": "assets/visual-arts/00_opportuniland.jpg",
+      "title": "Opportunyland",
+      "category": "Political poster"
     },
     {
-      "image": "assets/visual-arts/floral-geometry.jpg",
-      "title": "Floral Geometry",
-      "category": "Pattern"
+      "image": "assets/visual-arts/ANONYMITY_.jpg",
+      "title": "Opportunyland",
+      "category": "Political poster"
     },
     {
-      "image": "assets/visual-arts/letter-a.jpg",
-      "title": "Letter A",
-      "category": "Typography"
+      "image": "assets/visual-arts/obj-activity4.jpg",
+      "title": "Obj-activity",
+      "category": "Illustration"
     },
     {
-      "image": "assets/visual-arts/sunburst.jpg",
-      "title": "Sunburst",
-      "category": "Abstract"
+      "image": "assets/visual-arts/obj-activity.jpg",
+      "title": "Obj-activity",
+      "category": "Illustration"
     },
     {
-      "image": "assets/visual-arts/balance.jpg",
-      "title": "Balance",
-      "category": "Minimal"
+      "image": "assets/visual-arts/obj-activity2.jpg",
+      "title": "Obj-activity",
+      "category": "Illustration"
     },
     {
-      "image": "assets/visual-arts/puzzle-run.jpg",
-      "title": "Puzzle Run",
-      "category": "Geometric"
+      "image": "assets/visual-arts/on time x lavagnini-06.jpg",
+      "title": "On Time",
+      "category": "Illustration"
     },
     {
-      "image": "assets/visual-arts/soft-layers.jpg",
-      "title": "Soft Layers",
-      "category": "Abstract"
+      "image": "assets/visual-arts/on time x lavagnini-04.jpg",
+      "title": "On Time",
+      "category": "Illustration"
     }
   ]
 }
