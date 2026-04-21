@@ -64,13 +64,13 @@ export default function HomePage() {
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
       <div
         ref={panelRef}
-        className="w-full max-w-[720px] rounded-3xl px-8 py-12 md:px-16 md:py-16"
+        className="w-full max-w-[540px] rounded-3xl px-8 py-10 md:px-12 md:py-12"
         style={{
-          background: 'rgba(240, 237, 232, 0.15)',
-          backdropFilter: 'blur(28px) saturate(120%)',
-          WebkitBackdropFilter: 'blur(28px) saturate(120%)',
-          border: '1px solid rgba(255, 255, 255, 0.3)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+          background: 'rgba(240, 237, 232, 0.08)',
+          backdropFilter: 'blur(12px) saturate(120%)',
+          WebkitBackdropFilter: 'blur(12px) saturate(120%)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
           opacity: 0,
         }}
       >
