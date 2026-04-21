@@ -8,54 +8,54 @@
   ],
   "projects": [
     {
-      "image": "assets/photo-graphic/peeling-blue.jpg",
-      "title": "Peeling Blue",
+      "image": "assets/photo-graphic/Photo-Graphic_0.jpg",
+      "title": "Photo-Graphic 0",
       "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/canal-reflections.jpg",
-      "title": "Canal Reflections",
+      "image": "assets/photo-graphic/Photo-Graphic_1.jpg",
+      "title": "Photo-Graphic 1",
       "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/urban-canvas.jpg",
-      "title": "Urban Canvas",
-      "category": "Berlin"
+      "image": "assets/photo-graphic/Photo-Graphic_2.jpg",
+      "title": "Photo-Graphic 2",
+      "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/glass-grid.jpg",
-      "title": "Glass Grid",
-      "category": "Oslo"
+      "image": "assets/photo-graphic/Photo-Graphic_3.jpg",
+      "title": "Photo-Graphic 3",
+      "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/tile-market.jpg",
-      "title": "Tile Market",
-      "category": "Marrakech"
+      "image": "assets/photo-graphic/Photo-Graphic_4.jpg",
+      "title": "Photo-Graphic 4",
+      "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/sicilian-alley.jpg",
-      "title": "Sicilian Alley",
-      "category": "Palermo"
+      "image": "assets/photo-graphic/Photo-Graphic_5.jpg",
+      "title": "Photo-Graphic 5",
+      "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/puddle-mirror.jpg",
-      "title": "Puddle Mirror",
-      "category": "London"
+      "image": "assets/photo-graphic/Photo-Graphic_6.jpg",
+      "title": "Photo-Graphic 6",
+      "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/ironwork.jpg",
-      "title": "Ironwork",
-      "category": "Barcelona"
+      "image": "assets/photo-graphic/Photo-Graphic_7.jpg",
+      "title": "Photo-Graphic 7",
+      "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/turquoise-door.jpg",
-      "title": "Turquoise Door",
-      "category": "Marrakech"
+      "image": "assets/photo-graphic/Photo-Graphic_8.jpg",
+      "title": "Photo-Graphic 8",
+      "category": "Venice"
     },
     {
-      "image": "assets/photo-graphic/shadow-grid.jpg",
-      "title": "Shadow Grid",
-      "category": "Milan"
+      "image": "assets/photo-graphic/Photo-Graphic_9.jpg",
+      "title": "Photo-Graphic 9",
+      "category": "Venice"
     }
   ]
 }
