@@ -6,44 +6,44 @@
   "email": "chiara.czhu@gmail.com",
   "projects": [
     {
-      "image": "assets/branding/avant-ventures.jpg",
-      "title": "Avant Ventures",
-      "category": "Corporate Identity"
+      "image": "assets/branding/cavalli.png",
+      "title": "Horses",
+      "category": "Branding"
     },
     {
-      "image": "assets/branding/fleur-du-raisin.jpg",
-      "title": "Fleur du Raisin",
-      "category": "Wine Label"
+      "image": "assets/branding/cavallo.png",
+      "title": "Horses",
+      "category": "Branding"
     },
     {
-      "image": "assets/branding/aurora-cafe.jpg",
-      "title": "Aurora Cafe",
-      "category": "Cafe Branding"
+      "image": "assets/branding/connect.jpg",
+      "title": "Connect",
+      "category": "Branding"
     },
     {
-      "image": "assets/branding/atlas-architects.jpg",
-      "title": "Atlas Architects",
-      "category": "Stationery"
+      "image": "assets/branding/eliseo.png",
+      "title": "Eliseo identity",
+      "category": "Corporate identity"
     },
     {
-      "image": "assets/branding/toy-town.jpg",
-      "title": "Toy Town",
-      "category": "Packaging"
+      "image": "assets/branding/lido1.png",
+      "title": "Lido identity",
+      "category": "Istitutional branding"
     },
     {
-      "image": "assets/branding/aurora-wellness.jpg",
-      "title": "Aurora Wellness",
-      "category": "Luxury Brand"
+      "image": "assets/branding/lido2.png",
+      "title": "Lido identity",
+      "category": "Istitutional branding"
     },
     {
-      "image": "assets/branding/nexus-tech.jpg",
-      "title": "Nexus Tech",
-      "category": "Tech Startup"
+      "image": "assets/branding/hummingbird_poster.jpg",
+      "title": "Arte Laguna Prize",
+      "category": "Corporate identity"
     },
     {
-      "image": "assets/branding/daily-crumb.jpg",
-      "title": "The Daily Crumb",
-      "category": "Artisan Bakery"
+      "image": "assets/branding/hummingbird_showcase_web.jpg",
+      "title": "Arte Laguna Prize",
+      "category": "Corporate identity"
     }
   ]
 }
