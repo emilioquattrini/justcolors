@@ -37,18 +37,12 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, [bgImages.length]);
 
-  const handleNav = (path: string) => {
-    const nav = (window as any).__navigate;
-    if (nav) nav(path);
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-end px-6 md:pr-16 lg:pr-24 py-20">
       <div
         ref={panelRef}
         className="w-full max-w-[380px] rounded-3xl px-8 py-10 md:px-10"
         style={{
-          // Opacità aumentata a 0.15 per maggiore visibilità
           background: 'rgba(240, 237, 232, 0.15)',
           backdropFilter: 'blur(12px) saturate(120%)',
           WebkitBackdropFilter: 'blur(12px) saturate(120%)',
@@ -86,25 +80,38 @@ export default function HomePage() {
           </a>
         </div>
 
-        {/* Logo ed Impersonae Button */}
+        {/* Logo, Tagline e Pulsante */}
         <div ref={logoRef} className="text-center mb-10 flex flex-col items-center" style={{ opacity: 0 }}>
           <img 
             src={`${import.meta.env.BASE_URL}assets/home/JUSTCOLORS_logo.png`} 
             alt="Justcolors Logo" 
-            className="h-24 md:h-32 lg:h-36 object-contain mb-6" 
+            className="h-24 md:h-32 lg:h-36 object-contain mb-3" 
           />
           
-          {/* Pulsante Impersonae */}
+          {/* Tagline testuale sotto il logo */}
+          <p
+            className="text-sm tracking-widest mb-8 text-center"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              color: 'var(--text-primary)',
+              fontWeight: 400,
+              letterSpacing: '0.05em',
+            }}
+          >
+            Simple colors for complex works
+          </p>
+          
+          {/* Pulsante Impersonae (link esterno) */}
           <button
-            onClick={() => handleNav('/about')}
-            className="group relative px-8 py-3 overflow-hidden rounded-full transition-all duration-300"
+            onClick={() => window.open('https://impersonae.com', '_blank', 'noopener,noreferrer')}
+            className="group relative px-6 py-3 w-full overflow-hidden rounded-full transition-all duration-300"
             style={{
               border: '1px solid var(--text-primary)',
               color: 'var(--text-primary)',
             }}
           >
-            <span className="relative z-10 text-xs tracking-[0.3em] uppercase font-medium">
-              {homepageData.tagline}
+            <span className="relative z-10 text-xs tracking-[0.15em] uppercase font-medium block w-full text-center">
+              Impersonae - Design telling
             </span>
             <div className="absolute inset-0 bg-[var(--text-primary)] translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
             <style>{`
