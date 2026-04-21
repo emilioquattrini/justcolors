@@ -40,16 +40,19 @@ export default function Navigation() {
       >
         <div className="flex items-center justify-between h-14 px-6 lg:px-10">
           {/* Logo */}
-          <button
-            onClick={() => handleNav('/')}
-            className="font-serif text-xl tracking-tight"
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              color: isActive('/') ? 'var(--accent)' : 'var(--text-primary)',
-            }}
-          >
-            justcolors
-          </button>
+<button
+  onClick={() => handleNav('/')}
+  className="flex items-center"
+>
+  <img 
+    src={`${import.meta.env.BASE_URL}assets/home/JUSTCOLORS_logo.png`} 
+    alt="Logo" 
+    className="h-8 md:h-10 w-auto object-contain" 
+    style={{
+      filter: isActive('/') ? 'none' : 'brightness(0.9)', // Opzionale: scurisce leggermente se non è attivo
+    }}
+  />
+</button>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
