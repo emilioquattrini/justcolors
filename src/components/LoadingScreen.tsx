@@ -51,7 +51,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       {/* Linea di caricamento animata */}
       <div
         ref={lineRef}
-        className="w-32 h-px origin-left"
+        className="w-48 h-px origin-left"
         style={{ backgroundColor: 'var(--accent)', transformOrigin: 'left center' }}
       />
     </div>
