@@ -33,8 +33,8 @@ export default function Navigation() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          // Sfondo leggermente visibile anche all'inizio per proteggere il testo
-          backgroundColor: scrolled ? 'rgba(240, 237, 232, 0.95)' : 'rgba(240, 237, 232, 0.05)',
+          // Mantiene lo sfondo solido se si scrolla O se il menu mobile è aperto
+          backgroundColor: scrolled || mobileOpen ? 'rgba(240, 237, 232, 0.95)' : 'rgba(240, 237, 232, 0.05)',
           backdropFilter: 'blur(10px)',
           WebkitBackdropFilter: 'blur(10px)',
           borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
@@ -50,7 +50,7 @@ export default function Navigation() {
             />
           </button>
 
-          {/* Desktop Nav - Più visibile */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <button
@@ -60,7 +60,7 @@ export default function Navigation() {
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   color: 'var(--text-primary)',
-                  fontWeight: 600, // Aumentato spessore
+                  fontWeight: 600,
                   opacity: isActive(link.path) ? 1 : 0.7,
                 }}
               >
@@ -76,18 +76,42 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle (Hamburger) */}
           <button
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className="md:hidden flex flex-col gap-1.5 p-2 z-[60] relative"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Menu"
           >
-            <span className={`block w-6 h-0.5 transition-all ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
-            <span className={`block w-6 h-0.5 transition-all ${mobileOpen ? 'opacity-0' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
-            <span className={`block w-6 h-0.5 transition-all ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
+            <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
+            <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
+            <span className={`block w-6 h-0.5 transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{ backgroundColor: 'var(--text-primary)' }} />
           </button>
         </div>
       </nav>
-      {/* ... resto del mobile menu overlay ... */}
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 transition-all duration-500 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        style={{ 
+          backgroundColor: 'rgba(240, 237, 232, 0.98)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)'
+        }}
+      >
+        {navLinks.map((link) => (
+          <button
+            key={link.label}
+            onClick={() => handleNav(link.path)}
+            className="text-3xl transition-colors duration-150 hover:text-[var(--accent)]"
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              color: isActive(link.path) ? 'var(--accent)' : 'var(--text-primary)',
+            }}
+          >
+            {link.label}
+          </button>
+        ))}
+      </div>
     </>
   );
 }
