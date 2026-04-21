@@ -34,17 +34,21 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       className="fixed inset-0 z-[200] flex flex-col items-center justify-center"
       style={{ backgroundColor: 'var(--bg-inverse)' }}
     >
-      <div
-        ref={wordmarkRef}
-        className="text-3xl mb-6"
-        style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          color: 'var(--text-inverse)',
-          fontWeight: 400,
-        }}
-      >
-        justcolors
+      {/* Contenitore del logo animato */}
+      <div ref={wordmarkRef} className="mb-6 flex justify-center">
+        <img 
+          src={`${import.meta.env.BASE_URL}assets/home/JUSTCOLORS_logo.png`} 
+          alt="Justcolors Logo" 
+          className="h-16 md:h-24 w-auto object-contain" 
+          style={{
+            // Aggiungo un filtro per renderlo bianco se il tuo sfondo di caricamento è scuro
+            // Rimuovi questa riga se il logo ha già il colore corretto per lo sfondo
+            filter: 'brightness(0) invert(1)' 
+          }}
+        />
       </div>
+      
+      {/* Linea di caricamento animata */}
       <div
         ref={lineRef}
         className="w-32 h-px origin-left"
