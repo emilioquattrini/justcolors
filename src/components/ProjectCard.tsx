@@ -18,30 +18,32 @@ export default function ProjectCard({ src, title, category, onClick }: ProjectCa
       <img
         src={src}
         alt={title}
-        // Aggiunto group-hover:scale-[1.04] per gestire l'animazione CSS al posto del React state
-        className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-[1.04]"
+        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]"
         loading="lazy"
       />
-      {/* Hover overlay */}
+      
+      {/* Overlay Ibrido:
+        - Mobile: Sfumatura nera in basso (bg-gradient), sempre visibile (opacity-100), testo in basso (justify-end)
+        - Desktop: Sfondo piatto scuro (md:bg-[#1a1a1a]/40), invisibile di base (md:opacity-0), appare al centro in hover
+      */}
       <div
-        // Aggiunto opacity-0 e group-hover:opacity-100
-        className="absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-        style={{
-          backgroundColor: 'rgba(26, 26, 26, 0.4)',
-        }}
+        className="absolute inset-0 flex flex-col items-center transition-all duration-300
+                   justify-end pb-4 md:justify-center md:pb-0
+                   bg-gradient-to-t from-[#1a1a1a]/80 via-[#1a1a1a]/20 to-transparent 
+                   md:bg-none md:bg-[#1a1a1a]/40
+                   opacity-100 md:opacity-0 md:group-hover:opacity-100"
       >
         <span
-          className="text-lg font-medium text-center px-4"
-          style={{ color: 'var(--text-inverse)', fontFamily: "'Inter', sans-serif" }}
+          className="text-sm md:text-lg font-medium text-center px-4 transition-transform duration-300"
+          style={{ color: '#F0EDE8', fontFamily: "'Inter', sans-serif" }}
         >
           {title}
         </span>
         {category && (
           <span
-            className="mt-1 text-center px-4"
+            className="mt-0.5 md:mt-1 text-center px-4 text-[9px] md:text-[11px]"
             style={{
               fontFamily: "'IBM Plex Mono', monospace",
-              fontSize: '11px',
               fontWeight: 400,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
