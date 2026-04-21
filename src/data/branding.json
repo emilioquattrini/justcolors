@@ -6,6 +6,11 @@
   "email": "chiara.czhu@gmail.com",
   "projects": [
     {
+      "image": "assets/branding/Florence Biennale 2027.jpg",
+      "title": "Florence Biennale",
+      "category": "Branding"
+    },
+    {
       "image": "assets/branding/cavalli.png",
       "title": "Horses",
       "category": "Branding"
