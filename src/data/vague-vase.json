@@ -1,0 +1,170 @@
+{
+  "seo": {
+    "title": "VagueVase — JUSTCOLORS by Chiara Zhu",
+    "description": "Discover VagueVase, a modular sculptural vase collection by Chiara Zhu. Preview and reserve the first edition at BIG Milano."
+  },
+  "brand": {
+    "logoImage": "",
+    "logoText": "JUSTCOLORS",
+    "logoAlt": "JUSTCOLORS",
+    "homeUrl": "#/",
+    "byline": "by Chiara Zhu"
+  },
+  "navigation": [
+    {
+      "label": "Collection",
+      "target": "collection"
+    },
+    {
+      "label": "How it works",
+      "target": "modular"
+    },
+    {
+      "label": "Story",
+      "target": "story"
+    },
+    {
+      "label": "BIG Milano",
+      "target": "preorder"
+    }
+  ],
+  "hero": {
+    "eyebrow": "VAGUEVASE · FIRST EDITION",
+    "title": "Colour takes form.",
+    "body": "A sculptural vase collection by Chiara Zhu. Preview and reserve the first edition at BIG Milano.",
+    "primaryCta": "Pre-order",
+    "secondaryCta": "Discover the collection",
+    "image": "/assets/vague-vase/hero-large.webp",
+    "imageAlt": "Large orange and magenta VagueVase in a warm 1970s-inspired interior",
+    "caption": "Lifestyle visualisation based on the first studio prototype.",
+    "sideNote": "Italian spirit. Contemporary colour.",
+    "footerNote": "Objects for a brighter everyday."
+  },
+  "intro": {
+    "id": "intro",
+    "eyebrow": "OBJECTS FOR CREATIVE SPACES",
+    "title": "Playful forms. Considered details.",
+    "body": "A collection designed to bring more colour, personality and joy into everyday life. VagueVase combines a sculptural body with interchangeable floral elements.",
+    "linkLabel": "Discover the collection",
+    "linkTarget": "collection",
+    "image": "/assets/vague-vase/desk-small.webp",
+    "imageAlt": "Small lilac and blue VagueVase beside an orange typewriter on a wooden desk",
+    "caption": "Small VagueVase · floral stem composition"
+  },
+  "collection": {
+    "id": "collection",
+    "eyebrow": "THE COLLECTION",
+    "title": "Same shape. Different moods.",
+    "body": "Two colour stories, two scales and endless combinations. The first prototypes explore how one graphic language can move from an intimate desk object to a statement piece.",
+    "linkLabel": "Reserve your version",
+    "image": "/assets/vague-vase/collection-pair.webp",
+    "imageAlt": "Small and large VagueVase displayed together in a warm mid-century interior",
+    "sideNote": "One form. Many atmospheres."
+  },
+  "modular": {
+    "id": "modular",
+    "eyebrow": "MODULAR DESIGN",
+    "title": "Simple elements. More expression.",
+    "body": "The vase and its floral elements are conceived as a modular system. Stems can be exchanged, rearranged and styled to create a new character for the same object.",
+    "linkLabel": "Pre-order without payment",
+    "image": "/assets/vague-vase/modular-elements.webp",
+    "imageAlt": "Yellow floral stem and blue graphic stem arranged on a travertine surface",
+    "note": "Same elements. New stories."
+  },
+  "story": {
+    "id": "story",
+    "eyebrow": "FROM SKETCH TO SPACE",
+    "title": "A bold idea takes shape.",
+    "body": "Born from Chiara Zhu’s graphic research, VagueVase translates rhythm, colour and repetition from a two-dimensional drawing into a three-dimensional object. The visible layers and precise colour changes celebrate the digital fabrication process rather than hiding it.",
+    "linkLabel": "About Chiara Zhu",
+    "linkUrl": "#/about",
+    "image": "/assets/vague-vase/sketch-to-space.webp",
+    "imageAlt": "Small VagueVase displayed beside its original graphic artwork",
+    "sideNote": "Ideas become objects."
+  },
+  "prototypes": {
+    "eyebrow": "THE FIRST PROTOTYPES",
+    "title": "Made to be seen up close.",
+    "body": "These are the first studio-made VagueVase prototypes that will be presented at BIG Milano. Final production details, colours and delivery timing will be confirmed before any purchase commitment.",
+    "images": [
+      {
+        "src": "/assets/vague-vase/studio-pair.webp",
+        "alt": "Small and large VagueVase studio prototypes on a black background",
+        "caption": "Small and Large · first studio prototypes"
+      },
+      {
+        "src": "/assets/vague-vase/detail-large.webp",
+        "alt": "Close view of the orange and magenta VagueVase prototype",
+        "caption": "Layered colour and visible 3D-printed texture"
+      }
+    ]
+  },
+  "preorder": {
+    "id": "preorder",
+    "eyebrow": "SEE IT IN PERSON",
+    "title": "Pre-order at BIG Milano.",
+    "body": "Be among the first to bring VagueVase into your space. Reserve your preferred version now or meet the collection at BIG Milano.",
+    "button": "Pre-order now",
+    "secondaryButton": "View the prototypes",
+    "disclaimer": "No payment now. Your reservation is non-binding: JUSTCOLORS will contact you with the final price, production timing and confirmation before proceeding.",
+    "backgroundImage": "/assets/vague-vase/detail-large.webp",
+    "shopDomain": "https://chiarazhu.myshopify.com",
+    "eventCode": "BIG Milano 2026",
+    "privacyUrl": "https://chiarazhu.myshopify.com/policies/privacy-policy",
+    "variants": [
+      {
+        "value": "small",
+        "label": "Small — Lilac / Blue",
+        "variantId": "55415212212563"
+      },
+      {
+        "value": "large",
+        "label": "Large — Orange / Magenta",
+        "variantId": "55415212245331"
+      },
+      {
+        "value": "set",
+        "label": "Set — Small + Large",
+        "variantId": "55415212278099"
+      }
+    ]
+  },
+  "dialog": {
+    "eyebrow": "VAGUEVASE RESERVATION",
+    "title": "Choose your first edition.",
+    "body": "Complete the form and continue to the secure Shopify reservation checkout. The total will be €0 and no payment details will be requested.",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone (optional)",
+    "countryLabel": "Country / city",
+    "versionLabel": "Preferred version",
+    "quantityLabel": "Quantity",
+    "notesLabel": "Notes (optional)",
+    "notesPlaceholder": "Tell us what interests you, or ask about other colours.",
+    "consentLabel": "I agree that JUSTCOLORS may use these details to contact me about this reservation.",
+    "submitLabel": "Continue to free reservation",
+    "submittingLabel": "Opening Shopify…",
+    "closeLabel": "Close"
+  },
+  "footer": {
+    "tagline": "Colour a brighter everyday.",
+    "copyright": "© JUSTCOLORS. All rights reserved.",
+    "socials": [
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/justcolors____/",
+        "icon": "instagram"
+      },
+      {
+        "label": "Pinterest",
+        "url": "",
+        "icon": "pinterest"
+      },
+      {
+        "label": "Contact",
+        "url": "#/contact",
+        "icon": "mail"
+      }
+    ]
+  }
+}
