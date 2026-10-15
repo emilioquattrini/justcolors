@@ -21,7 +21,11 @@ function AppContent() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [displayLocation, setDisplayLocation] = useState(location);
-  const isVagueVase = location.pathname.toLowerCase() === '/vaguevase';
+  const isVagueVaseHost =
+    typeof window !== 'undefined' &&
+    window.location.hostname.toLowerCase() === 'vaguevase.justcolors.net';
+  const isVagueVase =
+    isVagueVaseHost || location.pathname.toLowerCase() === '/vaguevase';
 
   // Sync currentPath with location
   useEffect(() => {
@@ -100,14 +104,18 @@ function AppContent() {
         ref={contentRef}
         className={isVagueVase ? 'relative' : 'relative z-10'}
       >
-        <Routes location={displayLocation}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/visual-arts" element={<VisualArtsPage />} />
-          <Route path="/branding" element={<BrandingPage />} />
-          <Route path="/photo-graphic" element={<PhotoGraphicPage />} />
-          <Route path="/vaguevase" element={<VagueVasePage />} />
-        </Routes>
+        {isVagueVaseHost ? (
+          <VagueVasePage />
+        ) : (
+          <Routes location={displayLocation}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/visual-arts" element={<VisualArtsPage />} />
+            <Route path="/branding" element={<BrandingPage />} />
+            <Route path="/photo-graphic" element={<PhotoGraphicPage />} />
+            <Route path="/vaguevase" element={<VagueVasePage />} />
+          </Routes>
+        )}
       </div>
 
       {!isVagueVase && <Footer />}
