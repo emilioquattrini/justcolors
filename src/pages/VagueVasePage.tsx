@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { FormEvent, MouseEvent as ReactMouseEvent } from 'react';
 import {
   ArrowRight,
+  Check,
   ExternalLink,
   Instagram,
   Mail,
@@ -10,26 +11,58 @@ import {
 } from 'lucide-react';
 import content from '@/data/vague-vase.json';
 import './VagueVasePage.css';
+import './VagueVaseReservation.css';
 
-const encodeBase64Url = (value: unknown) => {
-  const bytes = new TextEncoder().encode(JSON.stringify(value));
-  let binary = '';
+type ReservationResponse = {
+  success?: boolean;
+  error?: string;
+  referenceCode?: string;
+  createdAt?: string;
+  duplicate?: boolean;
+};
 
-  bytes.forEach((byte) => {
-    binary += String.fromCharCode(byte);
-  });
+const createUuid = () => {
+  if (typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
 
-  return btoa(binary)
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/g, '');
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) =>
+    byte.toString(16).padStart(2, '0'),
+  );
+
+  return [
+    hex.slice(0, 4).join(''),
+    hex.slice(4, 6).join(''),
+    hex.slice(6, 8).join(''),
+    hex.slice(8, 10).join(''),
+    hex.slice(10, 16).join(''),
+  ].join('-');
+};
+
+const readTracking = () => {
+  const params = new URLSearchParams(window.location.search);
+
+  return {
+    utmSource: params.get('utm_source') ?? '',
+    utmMedium: params.get('utm_medium') ?? '',
+    utmCampaign: params.get('utm_campaign') ?? '',
+    utmContent: params.get('utm_content') ?? '',
+  };
 };
 
 const VagueVasePage = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const formStartedAtRef = useRef(new Date().toISOString());
+  const submissionTokenRef = useRef('');
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
+  const [reservationReference, setReservationReference] = useState('');
   const [selectedVersion, setSelectedVersion] = useState(
     content.preorder.variants[0]?.value ?? '',
   );
@@ -40,6 +73,7 @@ const VagueVasePage = () => {
   const [country, setCountry] = useState('');
   const [notes, setNotes] = useState('');
   const [consent, setConsent] = useState(false);
+  const [website, setWebsite] = useState('');
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -80,8 +114,29 @@ const VagueVasePage = () => {
     setMenuOpen(false);
   };
 
+  const resetReservationForm = () => {
+    setSelectedVersion(content.preorder.variants[0]?.value ?? '');
+    setQuantity('1');
+    setName('');
+    setEmail('');
+    setPhone('');
+    setCountry('');
+    setNotes('');
+    setConsent(false);
+    setWebsite('');
+    setFormError('');
+    setReservationReference('');
+    submissionTokenRef.current = '';
+  };
+
   const openPreorder = () => {
     setFormError('');
+    formStartedAtRef.current = new Date().toISOString();
+
+    if (!submissionTokenRef.current) {
+      submissionTokenRef.current = createUuid();
+    }
+
     dialogRef.current?.showModal();
     document.body.classList.add('vv-dialog-open');
   };
@@ -90,6 +145,10 @@ const VagueVasePage = () => {
     dialogRef.current?.close();
     document.body.classList.remove('vv-dialog-open');
     setSubmitting(false);
+
+    if (reservationReference) {
+      resetReservationForm();
+    }
   };
 
   const handleDialogBackdrop = (
@@ -100,7 +159,7 @@ const VagueVasePage = () => {
     }
   };
 
-  const handlePreorder = (event: FormEvent<HTMLFormElement>) => {
+  const handlePreorder = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormError('');
 
@@ -109,7 +168,12 @@ const VagueVasePage = () => {
     );
 
     if (!variant) {
-      setFormError('Please choose a VagueVase version.');
+      setFormError(content.dialog.invalidVersionError);
+      return;
+    }
+
+    if (!consent) {
+      setFormError(content.dialog.consentError);
       return;
     }
 
@@ -117,32 +181,67 @@ const VagueVasePage = () => {
     const safeQuantity = Number.isNaN(parsedQuantity)
       ? 1
       : Math.min(Math.max(parsedQuantity, 1), 10);
-    const shopDomain = content.preorder.shopDomain.replace(/\/$/, '');
-    const properties = {
-      Name: name.trim(),
-      Email: email.trim(),
-      Phone: phone.trim() || 'Not provided',
-      'Country / city': country.trim() || 'Not provided',
-      Notes: notes.trim() || 'None',
-      Event: content.preorder.eventCode,
-      Source: 'VagueVase landing page',
-      Reservation: 'Non-binding reservation — no payment collected',
-    };
-    const params = new URLSearchParams();
 
-    params.set('properties', encodeBase64Url(properties));
-    params.set('attributes[reservation_source]', 'vaguevase-landing');
-    params.set('attributes[event]', content.preorder.eventCode);
-    params.set('checkout[email]', email.trim());
-    params.set(
-      'note',
-      `VagueVase reservation · ${content.preorder.eventCode} · ${variant.label}`,
-    );
+    if (!submissionTokenRef.current) {
+      submissionTokenRef.current = createUuid();
+    }
 
-    const checkoutUrl = `${shopDomain}/cart/${variant.variantId}:${safeQuantity}?${params.toString()}`;
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 15_000);
 
     setSubmitting(true);
-    window.location.assign(checkoutUrl);
+
+    try {
+      const response = await fetch(content.preorder.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          submissionToken: submissionTokenRef.current,
+          fullName: name,
+          email,
+          phone,
+          countryCity: country,
+          version: variant.value,
+          quantity: safeQuantity,
+          notes,
+          consent: true,
+          consentAt: new Date().toISOString(),
+          formStartedAt: formStartedAtRef.current,
+          website,
+          landingUrl: window.location.href,
+          referrer: document.referrer,
+          locale: navigator.language,
+          pageVersion: content.preorder.pageVersion,
+          tracking: readTracking(),
+        }),
+      });
+
+      const result = (await response
+        .json()
+        .catch(() => ({}))) as ReservationResponse;
+
+      if (!response.ok || result.success !== true) {
+        throw new Error(result.error || content.dialog.errorFallback);
+      }
+
+      setReservationReference(result.referenceCode || 'VV-RECEIVED');
+      submissionTokenRef.current = '';
+    } catch (error) {
+      const message =
+        error instanceof DOMException && error.name === 'AbortError'
+          ? content.dialog.timeoutError
+          : error instanceof Error
+            ? error.message
+            : content.dialog.errorFallback;
+
+      setFormError(message);
+    } finally {
+      window.clearTimeout(timeoutId);
+      setSubmitting(false);
+    }
   };
 
   const renderLogo = (className: string) => {
@@ -485,135 +584,191 @@ const VagueVasePage = () => {
           closePreorder();
         }}
       >
-        <form className="vv-dialog-panel" onSubmit={handlePreorder}>
-          <button
-            className="vv-dialog-close"
-            type="button"
-            aria-label={content.dialog.closeLabel}
-            onClick={closePreorder}
-          >
-            <X aria-hidden="true" />
-          </button>
+        {reservationReference ? (
+          <div className="vv-dialog-panel">
+            <button
+              className="vv-dialog-close"
+              type="button"
+              aria-label={content.dialog.closeLabel}
+              onClick={closePreorder}
+            >
+              <X aria-hidden="true" />
+            </button>
 
-          <div className="vv-dialog-heading">
-            <p className="vv-eyebrow">{content.dialog.eyebrow}</p>
-            <h2 id="vv-dialog-title">{content.dialog.title}</h2>
-            <p>{content.dialog.body}</p>
+            <div
+              className="vv-reservation-success"
+              role="status"
+              aria-live="polite"
+            >
+              <span
+                className="vv-reservation-success-mark"
+                aria-hidden="true"
+              >
+                <Check />
+              </span>
+              <p className="vv-eyebrow">{content.dialog.successEyebrow}</p>
+              <h2 id="vv-dialog-title">{content.dialog.successTitle}</h2>
+              <p className="vv-reservation-success-copy">
+                {content.dialog.successBody}
+              </p>
+              <p className="vv-reservation-reference-label">
+                {content.dialog.successReferenceLabel}
+              </p>
+              <strong className="vv-reservation-reference">
+                {reservationReference}
+              </strong>
+              <button
+                className="vv-button vv-button-dark vv-reservation-success-button"
+                type="button"
+                onClick={closePreorder}
+              >
+                {content.dialog.successCloseLabel}
+              </button>
+            </div>
           </div>
+        ) : (
+          <form className="vv-dialog-panel" onSubmit={handlePreorder}>
+            <button
+              className="vv-dialog-close"
+              type="button"
+              aria-label={content.dialog.closeLabel}
+              onClick={closePreorder}
+            >
+              <X aria-hidden="true" />
+            </button>
 
-          <div className="vv-form-grid">
-            <label>
-              <span>{content.dialog.nameLabel}</span>
+            <div className="vv-dialog-heading">
+              <p className="vv-eyebrow">{content.dialog.eyebrow}</p>
+              <h2 id="vv-dialog-title">{content.dialog.title}</h2>
+              <p>{content.dialog.body}</p>
+            </div>
+
+            <div className="vv-form-grid">
+              <label>
+                <span>{content.dialog.nameLabel}</span>
+                <input
+                  type="text"
+                  autoComplete="name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                <span>{content.dialog.emailLabel}</span>
+                <input
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                <span>{content.dialog.phoneLabel}</span>
+                <input
+                  type="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                />
+              </label>
+              <label>
+                <span>{content.dialog.countryLabel}</span>
+                <input
+                  type="text"
+                  autoComplete="country-name"
+                  value={country}
+                  onChange={(event) => setCountry(event.target.value)}
+                />
+              </label>
+              <label className="vv-form-version">
+                <span>{content.dialog.versionLabel}</span>
+                <select
+                  value={selectedVersion}
+                  onChange={(event) => setSelectedVersion(event.target.value)}
+                  required
+                >
+                  {content.preorder.variants.map((variant) => (
+                    <option key={variant.value} value={variant.value}>
+                      {variant.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                <span>{content.dialog.quantityLabel}</span>
+                <select
+                  value={quantity}
+                  onChange={(event) => setQuantity(event.target.value)}
+                >
+                  {[1, 2, 3, 4, 5].map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="vv-form-notes">
+                <span>{content.dialog.notesLabel}</span>
+                <textarea
+                  rows={4}
+                  value={notes}
+                  placeholder={content.dialog.notesPlaceholder}
+                  onChange={(event) => setNotes(event.target.value)}
+                />
+              </label>
+            </div>
+
+            <label className="vv-honeypot" aria-hidden="true">
+              <span>Website</span>
               <input
                 type="text"
-                autoComplete="name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={website}
+                onChange={(event) => setWebsite(event.target.value)}
+              />
+            </label>
+
+            <label className="vv-consent">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(event) => setConsent(event.target.checked)}
                 required
               />
+              <span>{content.dialog.consentLabel}</span>
             </label>
-            <label>
-              <span>{content.dialog.emailLabel}</span>
-              <input
-                type="email"
-                autoComplete="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                required
-              />
-            </label>
-            <label>
-              <span>{content.dialog.phoneLabel}</span>
-              <input
-                type="tel"
-                autoComplete="tel"
-                value={phone}
-                onChange={(event) => setPhone(event.target.value)}
-              />
-            </label>
-            <label>
-              <span>{content.dialog.countryLabel}</span>
-              <input
-                type="text"
-                autoComplete="country-name"
-                value={country}
-                onChange={(event) => setCountry(event.target.value)}
-              />
-            </label>
-            <label className="vv-form-version">
-              <span>{content.dialog.versionLabel}</span>
-              <select
-                value={selectedVersion}
-                onChange={(event) => setSelectedVersion(event.target.value)}
-                required
-              >
-                {content.preorder.variants.map((variant) => (
-                  <option key={variant.value} value={variant.value}>
-                    {variant.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              <span>{content.dialog.quantityLabel}</span>
-              <select
-                value={quantity}
-                onChange={(event) => setQuantity(event.target.value)}
-              >
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="vv-form-notes">
-              <span>{content.dialog.notesLabel}</span>
-              <textarea
-                rows={4}
-                value={notes}
-                placeholder={content.dialog.notesPlaceholder}
-                onChange={(event) => setNotes(event.target.value)}
-              />
-            </label>
-          </div>
 
-          <label className="vv-consent">
-            <input
-              type="checkbox"
-              checked={consent}
-              onChange={(event) => setConsent(event.target.checked)}
-              required
-            />
-            <span>
-              {content.dialog.consentLabel}{' '}
-              <a
-                href={content.preorder.privacyUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Privacy policy
-              </a>
-            </span>
-          </label>
+            <details className="vv-privacy-details">
+              <summary>{content.dialog.privacyLabel}</summary>
+              <p>{content.dialog.privacyText}</p>
+            </details>
 
-          {formError ? <p className="vv-form-error">{formError}</p> : null}
+            {formError ? (
+              <p className="vv-form-error" role="alert">
+                {formError}
+              </p>
+            ) : null}
 
-          <button
-            className="vv-button vv-button-dark vv-dialog-submit"
-            type="submit"
-            disabled={submitting}
-          >
-            {submitting
-              ? content.dialog.submittingLabel
-              : content.dialog.submitLabel}
-            <ArrowRight aria-hidden="true" />
-          </button>
+            <button
+              className="vv-button vv-button-dark vv-dialog-submit"
+              type="submit"
+              disabled={submitting}
+            >
+              {submitting
+                ? content.dialog.submittingLabel
+                : content.dialog.submitLabel}
+              <ArrowRight aria-hidden="true" />
+            </button>
 
-          <p className="vv-dialog-disclaimer">
-            {content.preorder.disclaimer}
-          </p>
-        </form>
+            <p className="vv-dialog-disclaimer">
+              {content.preorder.disclaimer}
+            </p>
+          </form>
+        )}
       </dialog>
     </div>
   );
