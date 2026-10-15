@@ -3,9 +3,9 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 import { inspectAttr } from 'kimi-plugin-inspect-react'
 
-// === IMPORTANTE ===
-// GitHub Pages URL: https://username.github.io/justcolors/
-const BASE = '/justcolors/'
+// Relative assets keep the build working both on the GitHub Pages project URL
+// and on a custom campaign subdomain such as vaguevase.justcolors.net.
+const BASE = './'
 
 // https://vite.dev/config/
 export default defineConfig({
