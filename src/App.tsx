@@ -12,6 +12,7 @@ import AboutPage from './pages/AboutPage';
 import VisualArtsPage from './pages/VisualArtsPage';
 import BrandingPage from './pages/BrandingPage';
 import PhotoGraphicPage from './pages/PhotoGraphicPage';
+import VagueVasePage from './pages/VagueVasePage';
 
 function AppContent() {
   const location = useLocation();
@@ -20,11 +21,19 @@ function AppContent() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [displayLocation, setDisplayLocation] = useState(location);
+  const isVagueVase = location.pathname.toLowerCase() === '/vaguevase';
 
   // Sync currentPath with location
   useEffect(() => {
     setCurrentPath(location.pathname);
   }, [location.pathname, setCurrentPath]);
+
+  // The campaign landing page uses its own lightweight entry experience.
+  useEffect(() => {
+    if (isVagueVase) {
+      setIsLoading(false);
+    }
+  }, [isVagueVase]);
 
   // Handle page transitions
   const handleNavigate = useCallback((path: string) => {
@@ -74,24 +83,34 @@ function AppContent() {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
-      <BackgroundArtwork currentPath={location.pathname} />
-      <Navigation />
-      <CustomCursor />
+    <div className={isVagueVase ? 'min-h-screen' : 'relative min-h-screen'}>
+      {!isVagueVase && (
+        <>
+          <BackgroundArtwork currentPath={location.pathname} />
+          <Navigation />
+          <CustomCursor />
+        </>
+      )}
 
-      {isLoading && <LoadingScreen onComplete={handleLoadComplete} />}
+      {!isVagueVase && isLoading && (
+        <LoadingScreen onComplete={handleLoadComplete} />
+      )}
 
-      <div ref={contentRef} className="relative z-10">
+      <div
+        ref={contentRef}
+        className={isVagueVase ? 'relative' : 'relative z-10'}
+      >
         <Routes location={displayLocation}>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/visual-arts" element={<VisualArtsPage />} />
           <Route path="/branding" element={<BrandingPage />} />
           <Route path="/photo-graphic" element={<PhotoGraphicPage />} />
+          <Route path="/vaguevase" element={<VagueVasePage />} />
         </Routes>
       </div>
 
-      <Footer />
+      {!isVagueVase && <Footer />}
     </div>
   );
 }
