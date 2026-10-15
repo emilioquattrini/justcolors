@@ -6,6 +6,42 @@ Personal portfolio website for Chiara, graphic designer and visual artist based 
 
 ---
 
+## Landing page VagueVase
+
+La landing page dedicata a VagueVase è disponibile alla route:
+
+```text
+/#/vaguevase
+```
+
+Tutti i contenuti modificabili si trovano in un unico file:
+
+```text
+src/data/vague-vase.json
+```
+
+Da questo file si possono cambiare senza intervenire sul componente React:
+
+- testi, titoli, didascalie e CTA;
+- logo testuale oppure percorso di un logo immagine;
+- immagini delle singole sezioni;
+- voci di navigazione;
+- link social;
+- testi e campi della finestra di pre-ordine;
+- dominio Shopify e ID delle varianti usate per le prenotazioni.
+
+Le immagini della landing sono ospitate nella libreria file Shopify e richiamate tramite URL CDN permanenti. Il pre-ordine utilizza un prodotto Shopify `UNLISTED` a prezzo zero: il visitatore completa un checkout di prenotazione senza pagamento e i dati scelti vengono registrati nell'ordine Shopify.
+
+File principali:
+
+```text
+src/pages/VagueVasePage.tsx
+src/pages/VagueVasePage.css
+src/data/vague-vase.json
+```
+
+---
+
 ## Come aggiungere un nuovo progetto
 
 ### 1. Aggiungi l'immagine
