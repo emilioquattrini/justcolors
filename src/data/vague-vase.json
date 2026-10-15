@@ -7,7 +7,7 @@
     "logoImage": "",
     "logoText": "JUSTCOLORS",
     "logoAlt": "JUSTCOLORS",
-    "homeUrl": "#/",
+    "homeUrl": "https://justcolors.net",
     "byline": "by Chiara Zhu"
   },
   "navigation": [
@@ -77,7 +77,7 @@
     "title": "A bold idea takes shape.",
     "body": "Born from Chiara Zhu’s graphic research, VagueVase translates rhythm, colour and repetition from a two-dimensional drawing into a three-dimensional object. The visible layers and precise colour changes celebrate the digital fabrication process rather than hiding it.",
     "linkLabel": "About Chiara Zhu",
-    "linkUrl": "#/about",
+    "linkUrl": "https://justcolors.net",
     "image": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-sketch-to-space.webp?v=1792097693",
     "imageAlt": "Small VagueVase displayed beside its original graphic artwork",
     "sideNote": "Ideas become objects."
@@ -108,9 +108,11 @@
     "secondaryButton": "View the prototypes",
     "disclaimer": "No payment now. Your reservation is non-binding: JUSTCOLORS will contact you with the final price, production timing and confirmation before proceeding.",
     "backgroundImage": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-detail-large.webp?v=1792097712",
+    "endpoint": "https://zwjzlzyqsqxqtjxhgmbs.supabase.co/functions/v1/vaguevase-preorder",
+    "pageVersion": "2026-10-16-v1",
     "shopDomain": "https://chiarazhu.myshopify.com",
     "eventCode": "BIG Milano 2026",
-    "privacyUrl": "https://chiarazhu.myshopify.com/policies/privacy-policy",
+    "privacyUrl": "mailto:chiara.czhu@gmail.com?subject=VagueVase%20privacy",
     "variants": [
       {
         "value": "small",
@@ -132,7 +134,7 @@
   "dialog": {
     "eyebrow": "VAGUEVASE RESERVATION",
     "title": "Choose your first edition.",
-    "body": "Complete the form and continue to the secure Shopify reservation checkout. The total will be €0 and no payment details will be requested.",
+    "body": "Complete the form to register a non-binding reservation. No payment details will be requested.",
     "nameLabel": "Name",
     "emailLabel": "Email",
     "phoneLabel": "Phone (optional)",
@@ -142,8 +144,18 @@
     "notesLabel": "Notes (optional)",
     "notesPlaceholder": "Tell us what interests you, or ask about other colours.",
     "consentLabel": "I agree that JUSTCOLORS may use these details to contact me about this reservation.",
-    "submitLabel": "Continue to free reservation",
-    "submittingLabel": "Opening Shopify…",
+    "privacyLabel": "Privacy information",
+    "privacyText": "JUSTCOLORS will use the information provided only to manage this non-binding VagueVase reservation and contact you about price, production and availability. The information will not be sold. You may request access, correction or deletion by writing to chiara.czhu@gmail.com.",
+    "submitLabel": "Reserve without payment",
+    "submittingLabel": "Saving reservation…",
+    "invalidVersionError": "Please choose a VagueVase version.",
+    "timeoutError": "The request took too long. Please check your connection and try again.",
+    "errorFallback": "We could not save your reservation. Please try again.",
+    "successEyebrow": "RESERVATION RECEIVED",
+    "successTitle": "Your VagueVase is on the list.",
+    "successBody": "No payment has been collected. JUSTCOLORS will contact you before any purchase commitment with the final price, production timing and availability.",
+    "successReferenceLabel": "Reservation reference",
+    "successCloseLabel": "Return to VagueVase",
     "closeLabel": "Close"
   },
   "footer": {
@@ -162,7 +174,7 @@
       },
       {
         "label": "Contact",
-        "url": "#/contact",
+        "url": "mailto:chiara.czhu@gmail.com?subject=VagueVase",
         "icon": "mail"
       }
     ]
