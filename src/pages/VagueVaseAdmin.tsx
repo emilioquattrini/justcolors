@@ -95,7 +95,7 @@ export default function VagueVaseAdmin() {
     });
     setBusy(false);
     if (error) setError(error.status === 429 ? 'Troppi tentativi. Attendi prima di richiedere una nuova email.' : 'Email di attivazione non inviata. Riprova più tardi o contatta Justcolors.');
-    else setNotice('Richiesta accettata. Controlla la posta e lo spam: apri il link email per attivare l’account. L’accesso ai pre-order resta riservato agli indirizzi autorizzati.');
+    else setNotice('Richiesta accettata. Controlla posta e spam. Se il collegamento apre localhost, copialo dal pulsante nell’email senza aprirlo e usa la procedura qui sotto. L’accesso ai pre-order resta riservato agli indirizzi autorizzati.');
   }
   async function completeEmailLink() {
     setBusy(true); setError(''); setNotice('');
