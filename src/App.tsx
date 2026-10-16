@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { TransitionProvider, useTransition } from './context/TransitionContext';
 import BackgroundArtwork from './components/BackgroundArtwork';
@@ -13,6 +13,7 @@ import VisualArtsPage from './pages/VisualArtsPage';
 import BrandingPage from './pages/BrandingPage';
 import PhotoGraphicPage from './pages/PhotoGraphicPage';
 import VagueVasePage from './pages/VagueVasePage';
+const VagueVaseAdmin = lazy(() => import('./pages/VagueVaseAdmin'));
 
 function AppContent() {
   const location = useLocation();
@@ -124,6 +125,10 @@ function AppContent() {
 }
 
 export default function App() {
+  const location = useLocation();
+  if (location.pathname.toLowerCase() === '/admin/preorders' || new URLSearchParams(window.location.search).get('admin-auth') === '1') {
+    return <Suspense fallback={<p role="status">Caricamento…</p>}><VagueVaseAdmin /></Suspense>;
+  }
   return (
     <TransitionProvider>
       <AppContent />
