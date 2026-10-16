@@ -84,6 +84,17 @@ export default function VagueVaseAdmin() {
     if (error) setError('Invio non riuscito. Riprova più tardi.');
     else setNotice('Se l’account esiste, riceverai un’email per impostare la password.');
   }
+  async function activateAccount() {
+    if (!email.trim()) { setError('Inserisci prima la tua email.'); return; }
+    setBusy(true); setError(''); setNotice('');
+    const { error } = await db.auth.signInWithOtp({
+      email: email.trim(),
+      options: { shouldCreateUser: true, emailRedirectTo: `${window.location.origin}${window.location.pathname}?admin-auth=1` },
+    });
+    setBusy(false);
+    if (error) setError(error.status === 429 ? 'Troppi tentativi. Attendi prima di richiedere una nuova email.' : 'Email di attivazione non inviata. Riprova più tardi o contatta Justcolors.');
+    else setNotice('Richiesta accettata. Controlla la posta e lo spam: apri il link email per attivare l’account. L’accesso ai pre-order resta riservato agli indirizzi autorizzati.');
+  }
   async function savePassword(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setError('');
     const { error } = await db.auth.updateUser({ password });
@@ -118,9 +129,10 @@ export default function VagueVaseAdmin() {
       <label>Email<input type="email" autoComplete="username" required value={email} onChange={e => setEmail(e.target.value)} /></label>
       <label>Password<input type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)} /></label>
       <button disabled={busy}>{busy ? 'Accesso…' : 'Accedi'}</button>
-      <button type="button" disabled={busy} onClick={() => void resetPassword()}>Imposta / recupera password</button>
+      <button type="button" disabled={busy} onClick={() => void activateAccount()}>Primo accesso: invia link email</button>
+      <button type="button" disabled={busy} onClick={() => void resetPassword()}>Recupera password</button>
       {notice && <p role="status">{notice}</p>}
-      <p>Accesso su invito. Se il link è scaduto, inserisci l’email e richiedine uno nuovo.</p>
+      <p>Non hai ancora una password? Inserisci l’email autorizzata e scegli “Primo accesso”. Il recupero password è per gli account già attivi.</p>
       {error && <p role="alert">{error}</p>}
     </form> : setupPassword ? <form className="va-login" onSubmit={savePassword}>
       <h2>Imposta la tua password</h2><p>Scegli una password personale di almeno 12 caratteri.</p>

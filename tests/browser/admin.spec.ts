@@ -54,3 +54,31 @@ test('hidden admin route excludes public navigation', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Gestione pre-order' })).toBeVisible();
   await expect(page.getByRole('navigation')).toHaveCount(0);
 });
+
+test('first access requests email activation rather than password recovery', async ({ page }) => {
+  let activationRequested = false;
+  await page.route('https://*.supabase.co/**', async route => {
+    const url = new URL(route.request().url());
+    if (url.pathname.endsWith('/otp')) {
+      expect(route.request().postDataJSON()).toMatchObject({ email: 'new-admin@example.test', create_user: true });
+      expect(url.searchParams.get('redirect_to')).toBe('http://127.0.0.1:4173/?admin-auth=1');
+      activationRequested = true;
+    } else if (url.pathname.endsWith('/recover')) throw new Error('First access must not call password recovery');
+    await route.fulfill({ json: {} });
+  });
+  await page.goto('/#/admin/preorders');
+  await page.getByLabel('Email', { exact: true }).fill('new-admin@example.test');
+  await page.getByRole('button', { name: 'Primo accesso: invia link email' }).click();
+  await expect(page.getByRole('status')).toContainText('Richiesta accettata');
+  expect(activationRequested).toBe(true);
+  await expect(page.getByRole('table')).toHaveCount(0);
+});
+
+test('failed activation never claims an email was sent', async ({ page }) => {
+  await page.route('https://*.supabase.co/**', async route => route.fulfill({ status: 429, json: { code: 'over_email_send_rate_limit', msg: 'Rate limited' } }));
+  await page.goto('/#/admin/preorders');
+  await page.getByLabel('Email', { exact: true }).fill('new-admin@example.test');
+  await page.getByRole('button', { name: 'Primo accesso: invia link email' }).click();
+  await expect(page.getByRole('alert')).toContainText('Troppi tentativi');
+  await expect(page.getByText('Richiesta accettata', { exact: false })).toHaveCount(0);
+});
