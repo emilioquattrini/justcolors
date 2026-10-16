@@ -25,6 +25,17 @@ test('CSV quotes separators, quotes and newlines and neutralizes formulas', () =
   assert.equal(toCsv([]).split('\r\n').length, 1);
 });
 
+test('priced products filter independently from historical variants and sort by numeric value', () => {
+  const priced: Preorder[] = [
+    { ...rows[0], product_type: 'flower_stem', product_label: 'Flower stem', unit_price: 29.9, potential_value: 59.8 },
+    { ...rows[1], product_type: 'big_vase_flower', product_label: 'Big vase + flower', unit_price: 159, potential_value: 1590 },
+  ];
+  assert.deepEqual(selectRows([...rows, ...priced], '', 'flower_stem', '', 'created_at', false).map(row => row.product_label), ['Flower stem']);
+  assert.equal(selectRows([...rows, ...priced], '', 'Small', '', 'created_at', false).length, 1);
+  assert.deepEqual(selectRows(priced, '', '', '', 'potential_value', false).map(row => row.potential_value), [1590, 59.8]);
+  assert.ok(toCsv(priced).includes('"59.8"'));
+});
+
 test('activation accepts only verification links belonging to this Supabase project', () => {
   const token = 'a'.repeat(64);
   assert.deepEqual(parseAdminEmailLink(`https://zwjzlzyqsqxqtjxhgmbs.supabase.co/auth/v1/verify?token=${token}&type=signup&redirect_to=http://localhost:3000`), { token_hash: token, type: 'signup' });

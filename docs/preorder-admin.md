@@ -20,6 +20,17 @@ The SECURITY DEFINER helper is confined to a non-exposed private schema, with a 
 
 ## Use
 
+Priced reservations offer Small vase + flower (€99), Big vase + flower (€159), and Flower stem (€29.90).
+Apply `supabase/preorder-pricing.sql` before deploying the updated Edge Function and frontend.
+The Edge Function derives labels and prices from its server-side catalog; Postgres generates
+`potential_value` as `unit_price * quantity`. The existing quantity field and all historical
+records remain intact. Older cached forms remain accepted as unpriced legacy reservations.
+Historical reservations keep NULL product/pricing fields: they must not be assigned prices
+they were never shown. The potential-value KPI includes every priced reservation regardless
+of status and is neither collected revenue nor a confirmed sales forecast. Historical variants
+remain independently filterable. CSV exports include product type, label, unit price and potential value.
+Anonymous access and administrator status-only write permissions remain unchanged.
+
 KPIs always describe the full loaded dataset. Search, status and version filters apply together to the list and CSV. Click a column heading to sort; dates are displayed in Europe/Rome. The list shows 25 entries per page, but loading and export traverse the whole dataset, including beyond Supabase's response row limit. Refresh to see incoming reservations. This is an operational snapshot, not a real-time subscription or a transactional reporting system.
 
 Change a row's status with its selector. Writes compare the previously read status to avoid silently overwriting a concurrent administrator's change; refresh if a conflict is reported. No contact, quantity or note editing is allowed. CSV is UTF-8 with BOM, semicolon separated and formula-safe, and includes all matching results rather than only the visible page. Treat downloaded customer contact files as private.
