@@ -34,7 +34,7 @@
     "body": "A sculptural vase collection by Chiara Zhu. Preview and reserve the first edition at BIG Milano.",
     "primaryCta": "Pre-order",
     "secondaryCta": "Discover the collection",
-    "image": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-hero-large.webp?v=1792097648",
+    "image": "./assets/vaguevase/hero-authentic.webp",
     "imageAlt": "Large orange and magenta VagueVase in a warm 1970s-inspired interior",
     "caption": "Lifestyle visualisation based on the first studio prototype.",
     "sideNote": "Italian spirit. Contemporary colour.",
@@ -47,7 +47,7 @@
     "body": "A collection designed to bring more colour, personality and joy into everyday life. VagueVase combines a sculptural body with interchangeable floral elements.",
     "linkLabel": "Discover the collection",
     "linkTarget": "collection",
-    "image": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-desk-small.webp?v=1792097660",
+    "image": "./assets/vaguevase/intro-authentic.webp",
     "imageAlt": "Small lilac and blue VagueVase beside an orange typewriter on a wooden desk",
     "caption": "Small VagueVase · floral stem composition"
   },
@@ -57,7 +57,7 @@
     "title": "Same shape. Different moods.",
     "body": "Two colour stories, two scales and endless combinations. The first prototypes explore how one graphic language can move from an intimate desk object to a statement piece.",
     "linkLabel": "Reserve your version",
-    "image": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-collection-pair.webp?v=1792097673",
+    "image": "./assets/vaguevase/collection-authentic.webp",
     "imageAlt": "Small and large VagueVase displayed together in a warm mid-century interior",
     "sideNote": "One form. Many atmospheres."
   },
@@ -67,7 +67,7 @@
     "title": "Simple elements. More expression.",
     "body": "The vase and its floral elements are conceived as a modular system. Stems can be exchanged, rearranged and styled to create a new character for the same object.",
     "linkLabel": "Pre-order without payment",
-    "image": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-modular-elements.webp?v=1792097683",
+    "image": "./assets/vaguevase/modular-authentic.webp",
     "imageAlt": "Yellow floral stem and blue graphic stem arranged on a travertine surface",
     "note": "Same elements. New stories."
   },
@@ -78,7 +78,7 @@
     "body": "Born from Chiara Zhu’s graphic research, VagueVase translates rhythm, colour and repetition from a two-dimensional drawing into a three-dimensional object. The visible layers and precise colour changes celebrate the digital fabrication process rather than hiding it.",
     "linkLabel": "About Chiara Zhu",
     "linkUrl": "https://justcolors.net",
-    "image": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-sketch-to-space.webp?v=1792097693",
+    "image": "./assets/vaguevase/story-authentic.webp",
     "imageAlt": "Small VagueVase displayed beside its original graphic artwork",
     "sideNote": "Ideas become objects."
   },
