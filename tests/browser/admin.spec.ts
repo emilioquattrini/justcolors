@@ -82,3 +82,30 @@ test('failed activation never claims an email was sent', async ({ page }) => {
   await expect(page.getByRole('alert')).toContainText('Troppi tentativi');
   await expect(page.getByText('Richiesta accettata', { exact: false })).toHaveCount(0);
 });
+
+test('email link can be verified without following its localhost redirect', async ({ page }) => {
+  let verified = false;
+  const user = { id: 'test-admin', email: 'admin@example.test', aud: 'authenticated', role: 'authenticated', app_metadata: {}, user_metadata: {}, created_at: '' };
+  await page.route('https://*.supabase.co/**', async route => {
+    const url = new URL(route.request().url());
+    let body: unknown = {};
+    if (url.pathname.endsWith('/verify')) {
+      expect(route.request().postDataJSON()).toMatchObject({ token_hash: 'a'.repeat(64), type: 'signup' });
+      verified = true;
+      body = { access_token: 'test-access-token', refresh_token: 'test-refresh', expires_in: 3600, token_type: 'bearer', user };
+    } else if (url.pathname.endsWith('/user')) body = user;
+    else if (url.pathname.endsWith('/justcolors_is_preorder_admin')) body = true;
+    else if (url.pathname.endsWith('/justcolors_vaguevase_preorders')) body = [];
+    await route.fulfill({ json: body });
+  });
+  await page.goto('/#/admin/preorders');
+  await page.getByText('Il link apre localhost o una pagina errata?').click();
+  await page.getByLabel('Link ricevuto via email').fill('https://zwjzlzyqsqxqtjxhgmbs.supabase.co/auth/v1/verify?type=signup&token=' + 'a'.repeat(64) + '&redirect_to=http://localhost:3000');
+  await page.getByRole('button', { name: 'Verifica link e attiva accesso' }).click();
+  await expect(page.getByRole('heading', { name: 'Imposta la tua password' })).toBeVisible();
+  expect(verified).toBe(true);
+  expect(page.url()).not.toContain('token');
+  await page.getByLabel('Nuova password').fill('synthetic-test-password');
+  await page.getByRole('button', { name: 'Salva password' }).click();
+  await expect(page.getByRole('table')).toBeVisible();
+});
