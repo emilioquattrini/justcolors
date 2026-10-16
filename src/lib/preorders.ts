@@ -3,15 +3,16 @@ export type Status = typeof statuses[number];
 export type Preorder = {
   id: string; reference_code: string; created_at: string; full_name: string;
   email: string; phone: string | null; country_city: string; version_label: string;
+  product_type?: string | null; product_label?: string | null; unit_price?: number | null; potential_value?: number | null;
   quantity: number; notes: string | null; status: Status;
 };
-export const columns = ['reference_code', 'created_at', 'full_name', 'email', 'phone', 'country_city', 'version_label', 'quantity', 'notes', 'status'] as const;
-export const labels = ['Riferimento', 'Data', 'Nome', 'Email', 'Telefono', 'Città / paese', 'Versione', 'Quantità', 'Note', 'Stato'];
+export const columns = ['reference_code', 'created_at', 'full_name', 'email', 'phone', 'country_city', 'version_label', 'product_type', 'product_label', 'unit_price', 'potential_value', 'quantity', 'notes', 'status'] as const;
+export const labels = ['Riferimento', 'Data', 'Nome', 'Email', 'Telefono', 'Città / paese', 'Versione originale', 'Tipo prodotto', 'Prodotto', 'Prezzo unitario (€)', 'Valore potenziale (€)', 'Quantità', 'Note', 'Stato'];
 export function selectRows(rows: Preorder[], status: string, version: string, search: string, sort: typeof columns[number], ascending: boolean) {
   const query = search.trim().toLocaleLowerCase('it');
-  return rows.filter(row => (!status || row.status === status) && (!version || row.version_label === version) &&
+  return rows.filter(row => (!status || row.status === status) && (!version || (row.product_type ?? row.version_label) === version) &&
     (!query || columns.some(key => String(row[key] ?? '').toLocaleLowerCase('it').includes(query))))
-    .sort((a, b) => (ascending ? 1 : -1) * (sort === 'quantity' ? a.quantity - b.quantity :
+    .sort((a, b) => (ascending ? 1 : -1) * (['quantity', 'unit_price', 'potential_value'].includes(sort) ? Number(a[sort] ?? -1) - Number(b[sort] ?? -1) :
       String(a[sort] ?? '').localeCompare(String(b[sort] ?? ''), 'it', { numeric: true })));
 }
 export function toCsv(rows: Preorder[]) {

@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('login, complete KPIs, filters, search, status, CSV and logout', async ({ page }) => {
   const rows = Array.from({ length: 501 }, (_, i) => ({ id: `row-${i}`, reference_code: `VV-${i}`, created_at: '2026-10-15T12:00:00Z', full_name: i === 0 ? 'Cliente speciale' : 'Cliente test', email: 'test@example.test', phone: '+39000', country_city: 'Milano', version_label: i === 0 ? 'Small' : 'Large', quantity: 2, notes: '=formula', status: 'new' }));
+  Object.assign(rows[0], { product_type: 'flower_stem', product_label: 'Flower stem', unit_price: 29.9, potential_value: 59.8 });
   const user = { id: 'test-admin', email: 'admin@example.test', aud: 'authenticated', role: 'authenticated', app_metadata: {}, user_metadata: {}, created_at: '' };
   await page.route('https://*.supabase.co/**', async route => {
     const url = new URL(route.request().url());
@@ -30,7 +31,8 @@ test('login, complete KPIs, filters, search, status, CSV and logout', async ({ p
   await page.getByRole('button', { name: 'Accedi', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('501 prenotazioni trovate');
   await expect(page.locator('.va-kpis')).toContainText('1002');
-  await page.getByLabel('Versione', { exact: true }).selectOption('Small');
+  await expect(page.locator('.va-kpis')).toContainText('59,80');
+  await page.getByLabel('Versione', { exact: true }).selectOption('flower_stem');
   await page.getByLabel('Cerca', { exact: true }).fill('SPECIALE');
   await expect(page.getByRole('status')).toContainText('1 prenotazioni trovate');
   await page.getByLabel('Stato VV-0', { exact: true }).selectOption('confirmed');

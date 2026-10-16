@@ -4,6 +4,8 @@ import { parseAdminEmailLink } from '../lib/adminEmailLink';
 import { columns, labels, selectRows, statuses, toCsv } from '../lib/preorders';
 import type { Preorder, Status } from '../lib/preorders';
 import './VagueVaseAdmin.css';
+import content from '../data/vague-vase.json';
+const euros = (value: number) => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(value);
 
 export default function VagueVaseAdmin() {
   const [authorized, setAuthorized] = useState(false);
@@ -159,20 +161,20 @@ export default function VagueVaseAdmin() {
       <button disabled={busy}>{busy ? 'Salvataggio…' : 'Salva password'}</button>{error && <p role="alert">{error}</p>}
     </form> : <>
       <section className="va-kpis" aria-label="Riepilogo completo">
-        {[['Prenotazioni', rows.length], ['Quantità totale', rows.reduce((sum, row) => sum + row.quantity, 0)], ...statuses.map(s => [s, rows.filter(row => row.status === s).length])].map(([label, value]) => <article key={label}><span>{label}</span><strong>{busy ? '…' : value}</strong></article>)}
+        {[['Prenotazioni', rows.length], ['Valore potenziale totale', euros(rows.reduce((sum, row) => sum + Math.round(Number(row.potential_value ?? 0) * 100), 0) / 100)], ['Quantità totale', rows.reduce((sum, row) => sum + row.quantity, 0)], ...statuses.map(s => [s, rows.filter(row => row.status === s).length])].map(([label, value]) => <article key={label}><span>{label}</span><strong>{busy ? '…' : value}</strong></article>)}
       </section>
-      <p>I KPI si riferiscono a tutte le prenotazioni. Filtri ed export si applicano all’elenco.</p>
+      <p>I KPI si riferiscono a tutte le prenotazioni. Filtri ed export si applicano all’elenco. Le prenotazioni storiche senza prezzo sono escluse dal valore potenziale; non rappresenta un incasso.</p>
       <section className="va-controls" aria-label="Filtri prenotazioni">
         <label>Cerca<input type="search" placeholder="Nome, email, riferimento, note…" value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} /></label>
         <label>Stato<select aria-label="Stato" value={status} onChange={e => { setStatus(e.target.value); setPage(0); }}><option value="">Tutti gli stati</option>{statuses.map(s => <option key={s}>{s}</option>)}</select></label>
-        <label>Versione<select aria-label="Versione" value={version} onChange={e => { setVersion(e.target.value); setPage(0); }}><option value="">Tutte le versioni</option>{[...new Set(rows.map(row => row.version_label))].sort().map(v => <option key={v}>{v}</option>)}</select></label>
+        <label>Versione<select aria-label="Versione" value={version} onChange={e => { setVersion(e.target.value); setPage(0); }}><option value="">Tutte le versioni</option>{content.preorder.variants.map(v => <option key={v.value} value={v.value}>{v.label}</option>)}{[...new Set(rows.filter(row => !row.product_type).map(row => row.version_label))].sort().map(v => <option key={v} value={v}>{v} (storico)</option>)}</select></label>
         <button disabled={busy || !!saving} onClick={() => void load()}>Aggiorna</button><button disabled={busy || !filtered.length} onClick={exportCsv}>Esporta CSV ({filtered.length})</button>
       </section>
       {error && <p role="alert" className="va-error">{error}</p>}
       <p role="status" aria-live="polite">{busy ? 'Caricamento…' : `${filtered.length} prenotazioni trovate`}{saving && ' · Salvataggio…'}</p>
       <div className="va-table" tabIndex={0} role="region" aria-label="Elenco prenotazioni, scorrimento orizzontale"><table>
         <thead><tr>{columns.map((key, i) => <th key={key} aria-sort={sort === key ? ascending ? 'ascending' : 'descending' : 'none'}><button onClick={() => { setSort(key); setAscending(sort === key ? !ascending : true); setPage(0); }}>{labels[i]} {sort === key ? ascending ? '↑' : '↓' : '↕'}</button></th>)}</tr></thead>
-        <tbody>{filtered.slice(currentPage * 25, (currentPage + 1) * 25).map(row => <tr key={row.id}>{columns.map(key => <td key={key}>{key === 'status' ? <select aria-label={`Stato ${row.reference_code}`} disabled={!!saving || busy} value={row.status} onChange={e => void update(row, e.target.value as Status)}>{statuses.map(s => <option key={s}>{s}</option>)}</select> : key === 'created_at' ? new Date(row.created_at).toLocaleString('it-IT', { timeZone: 'Europe/Rome' }) : row[key] ?? '—'}</td>)}</tr>)}</tbody>
+        <tbody>{filtered.slice(currentPage * 25, (currentPage + 1) * 25).map(row => <tr key={row.id}>{columns.map(key => <td key={key}>{key === 'status' ? <select aria-label={`Stato ${row.reference_code}`} disabled={!!saving || busy} value={row.status} onChange={e => void update(row, e.target.value as Status)}>{statuses.map(s => <option key={s}>{s}</option>)}</select> : key === 'created_at' ? new Date(row.created_at).toLocaleString('it-IT', { timeZone: 'Europe/Rome' }) : (key === 'unit_price' || key === 'potential_value') && row[key] != null ? euros(Number(row[key])) : row[key] ?? '—'}</td>)}</tr>)}</tbody>
       </table>{!busy && !filtered.length && <p className="va-empty">Nessuna prenotazione corrisponde ai filtri.</p>}</div>
       <nav className="va-pagination" aria-label="Pagine elenco"><button disabled={!currentPage} onClick={() => setPage(currentPage - 1)}>Precedente</button><span>Pagina {currentPage + 1} di {lastPage + 1}</span><button disabled={currentPage >= lastPage} onClick={() => setPage(currentPage + 1)}>Successiva</button></nav>
     </>}

@@ -104,25 +104,28 @@
     "eyebrow": "SEE IT IN PERSON",
     "title": "Pre-order at BIG Milano.",
     "body": "Be among the first to bring VagueVase into your space. Reserve your preferred version now or meet the collection at BIG Milano.",
-    "button": "Pre-order now",
+    "button": "Reserve without payment",
     "secondaryButton": "View the prototypes",
-    "disclaimer": "No payment now. Your reservation is non-binding: JUSTCOLORS will contact you with the final price, production timing and confirmation before proceeding.",
+    "disclaimer": "No payment will be made now. This is a non-binding pre-order reservation. JUSTCOLORS will contact you before confirming production, availability and payment.",
     "backgroundImage": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-detail-large.webp?v=1792097712",
     "endpoint": "https://zwjzlzyqsqxqtjxhgmbs.supabase.co/functions/v1/vaguevase-preorder",
-    "pageVersion": "2026-10-16-v2",
+    "pageVersion": "2026-10-16-v3",
     "eventCode": "BIG Milano 2026",
     "variants": [
       {
-        "value": "small",
-        "label": "Small — Lilac / Blue"
+        "value": "small_vase_flower",
+        "label": "Small vase + flower",
+        "price": 99
       },
       {
-        "value": "large",
-        "label": "Large — Orange / Magenta"
+        "value": "big_vase_flower",
+        "label": "Big vase + flower",
+        "price": 159
       },
       {
-        "value": "set",
-        "label": "Set — Small + Large"
+        "value": "flower_stem",
+        "label": "Flower stem",
+        "price": 29.9
       }
     ]
   },
@@ -134,7 +137,7 @@
     "emailLabel": "Email",
     "phoneLabel": "Phone (optional)",
     "countryLabel": "Country / city",
-    "versionLabel": "Preferred version",
+    "versionLabel": "Choose your pre-order",
     "quantityLabel": "Quantity",
     "notesLabel": "Notes (optional)",
     "notesPlaceholder": "Tell us what interests you, or ask about other colours.",

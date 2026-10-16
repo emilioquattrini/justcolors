@@ -204,7 +204,7 @@ const VagueVasePage = () => {
           email,
           phone,
           countryCity: country,
-          version: variant.value,
+          product_type: variant.value,
           quantity: safeQuantity,
           notes,
           consent: true,
@@ -691,7 +691,7 @@ const VagueVasePage = () => {
                 >
                   {content.preorder.variants.map((variant) => (
                     <option key={variant.value} value={variant.value}>
-                      {variant.label}
+                      {variant.label} — €{variant.price.toLocaleString('it-IT', { minimumFractionDigits: Number.isInteger(variant.price) ? 0 : 2 })}
                     </option>
                   ))}
                 </select>
@@ -718,6 +718,11 @@ const VagueVasePage = () => {
                   onChange={(event) => setNotes(event.target.value)}
                 />
               </label>
+            </div>
+
+            <div className="vv-reservation-summary" aria-live="polite">
+              <strong>Estimated total: €{((content.preorder.variants.find(item => item.value === selectedVersion)?.price ?? 0) * 100 * Number(quantity) / 100).toLocaleString('it-IT', { minimumFractionDigits: Number.isInteger((content.preorder.variants.find(item => item.value === selectedVersion)?.price ?? 0) * Number(quantity)) ? 0 : 2, maximumFractionDigits: 2 })}</strong>
+              <p>{content.preorder.disclaimer}</p>
             </div>
 
             <label className="vv-honeypot" aria-hidden="true">

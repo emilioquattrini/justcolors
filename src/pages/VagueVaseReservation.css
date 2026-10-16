@@ -98,3 +98,7 @@
     height: 3.4rem;
   }
 }
+
+.vv-reservation-summary { padding: 20px; margin: 20px 0; border: 2px solid currentColor; background: #fff5e9; color: #28211c; }
+.vv-reservation-summary strong { font-size: 1.35rem; }
+.vv-reservation-summary p { margin: 12px 0 0; line-height: 1.5; }
