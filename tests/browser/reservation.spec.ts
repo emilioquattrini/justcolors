@@ -14,10 +14,10 @@ test('priced reservations update totals and send the selected product separately
   ]);
   await expect(dialog.getByText('Estimated total: €99', { exact: true })).toBeVisible();
   await dialog.getByLabel('Choose your pre-order').selectOption('big_vase_flower');
-  await dialog.getByLabel('Quantity', { exact: true }).selectOption('2');
+  await dialog.getByRole('combobox', { name: /^Quantity/ }).selectOption('2');
   await expect(dialog.getByText('Estimated total: €318', { exact: true })).toBeVisible();
   await dialog.getByLabel('Choose your pre-order').selectOption('flower_stem');
-  await dialog.getByLabel('Quantity', { exact: true }).selectOption('3');
+  await dialog.getByRole('combobox', { name: /^Quantity/ }).selectOption('3');
   await expect(dialog.getByText('Estimated total: €89,70', { exact: true })).toBeVisible();
   await expect(dialog.locator('.vv-reservation-summary')).toContainText('No payment will be made now. This is a non-binding pre-order reservation. JUSTCOLORS will contact you before confirming production, availability and payment.');
   await dialog.getByLabel('Name', { exact: true }).fill('Test reservation');
