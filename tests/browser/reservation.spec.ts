@@ -7,7 +7,7 @@ test('priced reservations update totals and send the selected product separately
     await route.fulfill({ status: 201, json: { success: true, referenceCode: 'VV-TEST' } });
   });
   await page.goto('/#/vaguevase');
-  await page.getByRole('button', { name: 'Pre-order', exact: true }).first().click();
+  await page.locator('.vv-hero').getByRole('button', { name: 'Pre-order', exact: true }).click();
   const dialog = page.getByRole('dialog');
   await expect(dialog.getByLabel('Choose your pre-order').locator('option')).toHaveText([
     'Small vase + flower — €99', 'Big vase + flower — €159', 'Flower stem — €29,90',
