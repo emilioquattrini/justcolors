@@ -133,8 +133,8 @@ export default function VagueVaseAdmin() {
       <p>I KPI si riferiscono a tutte le prenotazioni. Filtri ed export si applicano all’elenco.</p>
       <section className="va-controls" aria-label="Filtri prenotazioni">
         <label>Cerca<input type="search" placeholder="Nome, email, riferimento, note…" value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} /></label>
-        <label>Stato<select value={status} onChange={e => { setStatus(e.target.value); setPage(0); }}><option value="">Tutti gli stati</option>{statuses.map(s => <option key={s}>{s}</option>)}</select></label>
-        <label>Versione<select value={version} onChange={e => { setVersion(e.target.value); setPage(0); }}><option value="">Tutte le versioni</option>{[...new Set(rows.map(row => row.version_label))].sort().map(v => <option key={v}>{v}</option>)}</select></label>
+        <label>Stato<select aria-label="Stato" value={status} onChange={e => { setStatus(e.target.value); setPage(0); }}><option value="">Tutti gli stati</option>{statuses.map(s => <option key={s}>{s}</option>)}</select></label>
+        <label>Versione<select aria-label="Versione" value={version} onChange={e => { setVersion(e.target.value); setPage(0); }}><option value="">Tutte le versioni</option>{[...new Set(rows.map(row => row.version_label))].sort().map(v => <option key={v}>{v}</option>)}</select></label>
         <button disabled={busy || !!saving} onClick={() => void load()}>Aggiorna</button><button disabled={busy || !filtered.length} onClick={exportCsv}>Esporta CSV ({filtered.length})</button>
       </section>
       {error && <p role="alert" className="va-error">{error}</p>}
