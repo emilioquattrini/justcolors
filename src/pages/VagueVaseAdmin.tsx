@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { adminClient as db } from '../lib/adminClient';
+import { parseAdminEmailLink } from '../lib/adminEmailLink';
 import { columns, labels, selectRows, statuses, toCsv } from '../lib/preorders';
 import type { Preorder, Status } from '../lib/preorders';
 import './VagueVaseAdmin.css';
@@ -15,6 +16,7 @@ export default function VagueVaseAdmin() {
   const [password, setPassword] = useState('');
   const [setupPassword, setSetupPassword] = useState(new URLSearchParams(window.location.search).get('admin-auth') === '1');
   const [notice, setNotice] = useState('');
+  const [emailLink, setEmailLink] = useState('');
   const [status, setStatus] = useState('');
   const [version, setVersion] = useState('');
   const [search, setSearch] = useState('');
@@ -84,6 +86,29 @@ export default function VagueVaseAdmin() {
     if (error) setError('Invio non riuscito. Riprova più tardi.');
     else setNotice('Se l’account esiste, riceverai un’email per impostare la password.');
   }
+  async function activateAccount() {
+    if (!email.trim()) { setError('Inserisci prima la tua email.'); return; }
+    setBusy(true); setError(''); setNotice('');
+    const { error } = await db.auth.signInWithOtp({
+      email: email.trim(),
+      options: { shouldCreateUser: true, emailRedirectTo: `${window.location.origin}${window.location.pathname}?admin-auth=1` },
+    });
+    setBusy(false);
+    if (error) setError(error.status === 429 ? 'Troppi tentativi. Attendi prima di richiedere una nuova email.' : 'Email di attivazione non inviata. Riprova più tardi o contatta Justcolors.');
+    else setNotice('Richiesta accettata. Controlla posta e spam. Se il collegamento apre localhost, copialo dal pulsante nell’email senza aprirlo e usa la procedura qui sotto. L’accesso ai pre-order resta riservato agli indirizzi autorizzati.');
+  }
+  async function completeEmailLink() {
+    setBusy(true); setError(''); setNotice('');
+    let verification: ReturnType<typeof parseAdminEmailLink>;
+    try { verification = parseAdminEmailLink(emailLink); }
+    catch { setBusy(false); setError('Copia il collegamento originale del pulsante nell’email Supabase, senza aprirlo. Non usare l’indirizzo della pagina localhost.'); return; }
+    // Never navigate to the emailed URL or retain it in history, storage or logs.
+    setEmailLink('');
+    const { error } = await db.auth.verifyOtp(verification);
+    setBusy(false);
+    if (error) setError('Link scaduto, già usato o non valido. Richiedi un nuovo link e copialo dall’email senza aprirlo.');
+    else setSetupPassword(true);
+  }
   async function savePassword(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setError('');
     const { error } = await db.auth.updateUser({ password });
@@ -118,9 +143,15 @@ export default function VagueVaseAdmin() {
       <label>Email<input type="email" autoComplete="username" required value={email} onChange={e => setEmail(e.target.value)} /></label>
       <label>Password<input type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)} /></label>
       <button disabled={busy}>{busy ? 'Accesso…' : 'Accedi'}</button>
-      <button type="button" disabled={busy} onClick={() => void resetPassword()}>Imposta / recupera password</button>
+      <button type="button" disabled={busy} onClick={() => void activateAccount()}>Primo accesso: invia link email</button>
+      <button type="button" disabled={busy} onClick={() => void resetPassword()}>Recupera password</button>
       {notice && <p role="status">{notice}</p>}
-      <p>Accesso su invito. Se il link è scaduto, inserisci l’email e richiedine uno nuovo.</p>
+      <p>Non hai ancora una password? Inserisci l’email autorizzata e scegli “Primo accesso”. Il recupero password è per gli account già attivi.</p>
+      <details><summary>Il link apre localhost o una pagina errata?</summary>
+        <p>Richiedi un nuovo link. Nell’email copia il collegamento del pulsante senza aprirlo e incollalo qui. Verrà verificato direttamente con Supabase. Non condividerlo in chat.</p>
+        <label>Link ricevuto via email<input type="password" autoComplete="off" value={emailLink} onChange={e => setEmailLink(e.target.value)} /></label>
+        <button type="button" disabled={busy || !emailLink.trim()} onClick={() => void completeEmailLink()}>Verifica link e attiva accesso</button>
+      </details>
       {error && <p role="alert">{error}</p>}
     </form> : setupPassword ? <form className="va-login" onSubmit={savePassword}>
       <h2>Imposta la tua password</h2><p>Scegli una password personale di almeno 12 caratteri.</p>

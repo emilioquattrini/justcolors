@@ -31,7 +31,7 @@ jobs:
         run: node --experimental-strip-types --test tests/preorders.test.ts
 
       - name: Admin lint
-        run: npx eslint src/pages/VagueVaseAdmin.tsx src/lib/adminClient.ts src/lib/preorders.ts
+        run: npx eslint src/pages/VagueVaseAdmin.tsx src/lib/adminClient.ts src/lib/preorders.ts src/lib/adminEmailLink.ts
 
       - name: Install browser
         run: npx playwright install --with-deps chromium
