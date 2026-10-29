@@ -27,10 +27,16 @@ Da questo file si possono cambiare senza intervenire sul componente React:
 - immagini delle singole sezioni;
 - voci di navigazione;
 - link social;
-- testi e campi della finestra di pre-ordine;
-- dominio Shopify e ID delle varianti usate per le prenotazioni.
+- testi della finestra di acquisto;
+- dominio Shopify e ID della variante WAZP usata per l’acquisto.
 
-Le immagini della landing sono ospitate nella libreria file Shopify e richiamate tramite URL CDN permanenti. Il pre-ordine utilizza un prodotto Shopify `UNLISTED` a prezzo zero: il visitatore completa un checkout di prenotazione senza pagamento e i dati scelti vengono registrati nell'ordine Shopify.
+La landing mantiene la presentazione e la scelta della quantità sul sito VagueVase. Il pulsante apre il checkout Shopify con la variante WAZP esistente, senza raccogliere prenotazioni o dati personali sul sito.
+
+Prodotto: VagueVase 1 Small, Starry Night / Soft Lilac, con fiore giallo incluso (€79). Variante Shopify: `55637478736211`. Le altre versioni illustrate sono prototipi e non sono acquistabili da questa pagina.
+
+**Blocco verificato il 29 ottobre 2026:** il collegamento al checkout reindirizza a `/password`. Prima della messa in vendita, rimuovere la protezione del negozio e verificare pubblicazione sul canale Online Store, pagamenti e zone/tariffe di spedizione. La disponibilità in Shopify e lo SKU WAZP non dimostrano da soli che l'evasione automatica sia operativa: verificare l’assegnazione WAZP e un ordine di prova autorizzato.
+
+Il pagamento finale avviene sul checkout Shopify. Il sito VagueVase resta la vetrina; questa modifica non promette un pagamento incorporato né mantiene il dominio VagueVase durante il checkout. Non modifica gli ordini o le prenotazioni già registrati.
 
 File principali:
 
