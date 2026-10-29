@@ -11,10 +11,20 @@ import {
 import content from '@/data/vague-vase.json';
 import './VagueVasePage.css';
 
+const returnedSetQuantity = () => {
+  const params = new URLSearchParams(window.location.search);
+  const quantity = params.get('vv_sets');
+  if (params.get('vv_cart') !== '1' || !quantity || !/^[1-9]\d{0,2}$/.test(quantity)) {
+    return null;
+  }
+  return quantity;
+};
+
 const VagueVasePage = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [quantity, setQuantity] = useState('1');
+  const [returnedQuantity] = useState(returnedSetQuantity);
+  const [quantity, setQuantity] = useState(returnedQuantity ?? '1');
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -36,6 +46,11 @@ const VagueVasePage = () => {
 
     window.scrollTo({ top: 0, behavior: 'auto' });
 
+    if (returnedQuantity) {
+      dialogRef.current?.showModal();
+      document.body.classList.add('vv-dialog-open');
+    }
+
     return () => {
       document.title = previousTitle;
       document.body.classList.remove('vv-dialog-open');
@@ -46,7 +61,7 @@ const VagueVasePage = () => {
         descriptionMeta.content = previousDescription;
       }
     };
-  }, []);
+  }, [returnedQuantity]);
 
   const scrollToSection = (target: string) => {
     document
@@ -434,7 +449,7 @@ const VagueVasePage = () => {
             <label>
               <span>{content.dialog.quantityLabel}</span>
               <select value={quantity} onChange={(event) => setQuantity(event.target.value)}>
-                {[1, 2, 3, 4, 5].map((item) => (
+                {Array.from(new Set([1, 2, 3, 4, 5, Number(quantity)])).sort((a, b) => a - b).map((item) => (
                   <option key={item} value={item}>{item}</option>
                 ))}
               </select>
