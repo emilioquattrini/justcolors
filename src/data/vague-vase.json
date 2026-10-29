@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "VagueVase — JUSTCOLORS by Chiara Zhu",
-    "description": "Discover VagueVase by Chiara Zhu. Shop VagueVase 1 Small with its yellow flower stem."
+    "description": "Shop the complete VagueVase 1 Small + Yellow Stem set by Chiara Zhu. One vase and one stem in the same checkout."
   },
   "brand": {
     "logoImage": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/justcolors-logo-vaguevase-tight.png?v=1792630175",
@@ -31,8 +31,8 @@
   "hero": {
     "eyebrow": "VAGUEVASE · FIRST EDITION",
     "title": "Colour takes form.",
-    "body": "A sculptural vase collection by Chiara Zhu. VagueVase 1 Small is now available to buy.",
-    "primaryCta": "Buy now",
+    "body": "A sculptural vase collection by Chiara Zhu. Buy VagueVase 1 Small together with its yellow flower stem.",
+    "primaryCta": "Buy vase + stem",
     "secondaryCta": "Discover the collection",
     "image": "./assets/vaguevase/hero-authentic.webp",
     "imageAlt": "Large orange and magenta VagueVase in a warm 1970s-inspired interior",
@@ -101,9 +101,9 @@
   },
   "dialog": {
     "eyebrow": "VAGUEVASE · SHOP",
-    "title": "VagueVase 1 Small",
-    "body": "Starry Night / Soft Lilac, with one yellow flower stem. €79 each.",
-    "quantityLabel": "Quantity",
+    "title": "VagueVase Small + Yellow Stem",
+    "body": "One Starry Night / Soft Lilac vase + one Choco Brown / Lemon Yellow stem. Complete set: €98.90.",
+    "quantityLabel": "Number of sets",
     "submitLabel": "Continue to secure checkout",
     "closeLabel": "Close"
   },
@@ -132,17 +132,19 @@
     "id": "shop",
     "eyebrow": "VAGUEVASE · MADE TO ORDER",
     "title": "Make room for colour.",
-    "body": "Buy VagueVase 1 Small in Starry Night / Soft Lilac, supplied with one yellow flower stem. 3D printed in PLA and made to order in the European Union.",
-    "button": "Buy now — €79",
+    "body": "Buy the complete set: one VagueVase 1 Small in Starry Night / Soft Lilac plus one flower stem in Choco Brown / Lemon Yellow. Both pieces are 3D printed to order in the European Union.",
+    "button": "Buy vase + stem — €98.90",
     "secondaryButton": "View the prototypes",
     "disclaimer": "Continue to Shopify for secure payment. Shipping, taxes and the final total are shown at checkout. This is a paid purchase of a made-to-order product.",
     "backgroundImage": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-detail-large.webp?v=1792097712",
-    "productTitle": "VagueVase 1 Small",
-    "variantLabel": "Starry Night / Soft Lilac · Yellow flower stem included",
-    "price": 79,
+    "productTitle": "VagueVase Small + Yellow Stem",
+    "variantLabel": "Vase: Starry Night / Soft Lilac · Stem: Choco Brown / Lemon Yellow",
+    "price": 98.9,
     "variantId": "55637478736211",
     "shopUrl": "https://chiarazhu.myshopify.com",
-    "image": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-small-packshot.jpg?v=1792933431"
+    "image": "https://cdn.shopify.com/s/files/1/1109/4065/1859/files/vaguevase-small-packshot.jpg?v=1792933431",
+    "stemVariantId": "55637479326035",
+    "contentsLabel": "Each set contains 1 vase (€79) + 1 yellow stem (€19.90). Both items are added to your checkout."
   },
   "preorder": {
     "variants": [
