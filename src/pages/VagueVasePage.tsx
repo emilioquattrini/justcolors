@@ -70,7 +70,7 @@ const VagueVasePage = () => {
   };
 
   const checkoutUrl = new URL(
-    `/cart/${content.purchase.variantId}:${quantity}`,
+    `/cart/${content.purchase.variantId}:${quantity},${content.purchase.stemVariantId}:${quantity}`,
     content.purchase.shopUrl,
   );
   checkoutUrl.searchParams.set('utm_source', 'vaguevase');
@@ -429,6 +429,7 @@ const VagueVasePage = () => {
           <img src={content.purchase.image} alt={content.purchase.productTitle}
             style={{ width: '100%', maxHeight: 240, objectFit: 'contain' }} />
           <p>{content.purchase.variantLabel}</p>
+          <p>{content.purchase.contentsLabel}</p>
           <div className="vv-form-grid">
             <label>
               <span>{content.dialog.quantityLabel}</span>
