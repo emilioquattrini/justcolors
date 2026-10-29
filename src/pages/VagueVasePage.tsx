@@ -44,6 +44,17 @@ const VagueVasePage = () => {
       document.head.appendChild(descriptionMeta);
     }
 
+    const restoreCartOnPageShow = () => {
+      const restoredQuantity = returnedSetQuantity();
+      if (!restoredQuantity) return;
+      setQuantity(restoredQuantity);
+      if (dialogRef.current && !dialogRef.current.open) {
+        dialogRef.current.showModal();
+      }
+      document.body.classList.add('vv-dialog-open');
+    };
+    window.addEventListener('pageshow', restoreCartOnPageShow);
+
     window.scrollTo({ top: 0, behavior: 'auto' });
 
     if (returnedQuantity) {
@@ -52,6 +63,7 @@ const VagueVasePage = () => {
     }
 
     return () => {
+      window.removeEventListener('pageshow', restoreCartOnPageShow);
       document.title = previousTitle;
       document.body.classList.remove('vv-dialog-open');
 
