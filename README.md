@@ -28,13 +28,13 @@ Da questo file si possono cambiare senza intervenire sul componente React:
 - voci di navigazione;
 - link social;
 - testi della finestra di acquisto;
-- dominio Shopify e ID della variante WAZP usata per l’acquisto.
+- dominio Shopify e ID delle due varianti WAZP usate per il set.
 
-La landing mantiene la presentazione e la scelta della quantità sul sito VagueVase. Il pulsante apre il checkout Shopify con la variante WAZP esistente, senza raccogliere prenotazioni o dati personali sul sito.
+La landing mantiene la presentazione e la scelta della quantità sul sito VagueVase. Il pulsante apre il checkout Shopify con entrambe le varianti WAZP esistenti, senza raccogliere prenotazioni o dati personali sul sito.
 
-Prodotto: VagueVase 1 Small, Starry Night / Soft Lilac, con fiore giallo incluso (€79). Variante Shopify: `55637478736211`. Le altre versioni illustrate sono prototipi e non sono acquistabili da questa pagina.
+Set completo: 1 VagueVase 1 Small, Starry Night / Soft Lilac (€79), più 1 Yellow Flower Stem, Choco Brown / Lemon Yellow (€19,90). Totale prodotti: €98,90 per set. Varianti Shopify: vaso `55637478736211`, stem `55637479326035`. La quantità scelta indica il numero di set e viene applicata a entrambe le righe del checkout. Spedizione e imposte finali sono calcolate da Shopify.
 
-**Blocco verificato il 29 ottobre 2026:** il collegamento al checkout reindirizza a `/password`. Prima della messa in vendita, rimuovere la protezione del negozio e verificare pubblicazione sul canale Online Store, pagamenti e zone/tariffe di spedizione. La disponibilità in Shopify e lo SKU WAZP non dimostrano da soli che l'evasione automatica sia operativa: verificare l’assegnazione WAZP e un ordine di prova autorizzato.
+Entrambi i componenti sono prodotti WAZP sincronizzati e assegnati alla sede WAZP+ Fulfillment. Il checkout pubblico è stato verificato con entrambi i prodotti; non è stato effettuato alcun ordine o pagamento. Le altre versioni illustrate restano prototipi.
 
 Il pagamento finale avviene sul checkout Shopify. Il sito VagueVase resta la vetrina; questa modifica non promette un pagamento incorporato né mantiene il dominio VagueVase durante il checkout. Non modifica gli ordini o le prenotazioni già registrati.
 
