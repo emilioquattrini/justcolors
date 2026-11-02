@@ -34,6 +34,8 @@ Il pulsante Pre-order apre il modulo nativo sul sito VagueVase. La prenotazione 
 
 Il modulo invia la richiesta alla funzione esistente `vaguevase-preorder` e mostra il codice di riferimento solo dopo la conferma del salvataggio. Le versioni complete includono vaso e fiore. Prezzi e totale sono indicativi; produzione, disponibilità e condizioni finali saranno confermati prima di qualsiasi impegno di acquisto.
 
+I due prodotti Shopify del set VagueVase sono temporaneamente in bozza, per sospendere gli acquisti anche tramite vecchi link diretti. La configurazione dei prodotti è conservata per la futura riattivazione.
+
 File principali:
 
 ```text
