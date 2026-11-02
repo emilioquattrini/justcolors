@@ -1,53 +1,31 @@
 import { expect, test } from '@playwright/test';
 
-test('each set includes matching quantities of the WAZP vase and stem', async ({ page }) => {
-  let reservationRequests = 0;
+test('priced reservations update totals and send the selected product separately from quantity', async ({ page }) => {
+  let submitted: Record<string, unknown> | undefined;
   await page.route('**/functions/v1/vaguevase-preorder', async route => {
-    reservationRequests++;
-    await route.abort();
+    submitted = route.request().postDataJSON();
+    await route.fulfill({ status: 201, json: { success: true, referenceCode: 'VV-TEST' } });
   });
   await page.goto('/#/vaguevase');
-  await page.locator('.vv-hero').getByRole('button', { name: 'Buy vase + stem', exact: true }).click();
+  await page.locator('.vv-hero').getByRole('button', { name: 'Pre-order', exact: true }).click();
   const dialog = page.getByRole('dialog');
-  await expect(dialog.getByRole('heading', { name: 'VagueVase Small + Yellow Stem' })).toBeVisible();
-  await expect(dialog.getByText('Total: €98.90', { exact: true })).toBeVisible();
-  await expect(dialog.getByText('Each set contains 1 vase (€79) + 1 yellow stem (€19.90). Both items are added to your checkout.')).toBeVisible();
-  await dialog.getByLabel('Number of sets').selectOption('3');
-  await expect(dialog.getByText('Total: €296.70', { exact: true })).toBeVisible();
-  const checkout = dialog.getByRole('link', { name: 'Continue to secure checkout' });
-  const destination = new URL((await checkout.getAttribute('href'))!);
-  expect(destination.origin).toBe('https://chiarazhu.myshopify.com');
-  expect(destination.pathname).toBe('/cart/55637478736211:3,55637479326035:3');
-  await expect(dialog.locator('input[type="email"]')).toHaveCount(0);
-  await expect(page.getByText('Reserve without payment', { exact: true })).toHaveCount(0);
-  await page.keyboard.press('Escape');
-  await expect(dialog).not.toBeVisible();
-  expect(reservationRequests).toBe(0);
-});
-
-test('checkout cart return restores the selected set quantity and both components', async ({ page }) => {
-  await page.goto('/?vv_cart=1&vv_sets=3#/vaguevase');
-  const dialog = page.getByRole('dialog');
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByLabel('Number of sets')).toHaveValue('3');
-  await expect(dialog.getByText('Total: €296.70', { exact: true })).toBeVisible();
-  const link = dialog.getByRole('link', { name: 'Continue to secure checkout' });
-  expect(new URL((await link.getAttribute('href'))!).pathname)
-    .toBe('/cart/55637478736211:3,55637479326035:3');
-  await dialog.getByLabel('Number of sets').selectOption('2');
-  await expect(dialog.getByText('Total: €197.80', { exact: true })).toBeVisible();
-  expect(new URL((await link.getAttribute('href'))!).pathname)
-    .toBe('/cart/55637478736211:2,55637479326035:2');
-});
-
-test('returned quantities outside the quick choices are preserved', async ({ page }) => {
-  await page.goto('/?vv_cart=1&vv_sets=8#/vaguevase');
-  await expect(page.getByRole('dialog').getByLabel('Number of sets')).toHaveValue('8');
-});
-
-test('invalid cart return data does not open or change the purchase dialog', async ({ page }) => {
-  await page.goto('/?vv_cart=1&vv_sets=-2#/vaguevase');
-  await expect(page.getByRole('dialog')).not.toBeVisible();
-  await page.locator('.vv-hero').getByRole('button', { name: 'Buy vase + stem', exact: true }).click();
-  await expect(page.getByRole('dialog').getByLabel('Number of sets')).toHaveValue('1');
+  await expect(page.locator('a[href*="myshopify.com"], a[href*="/checkout"], a[href*="/cart/"]')).toHaveCount(0);
+  await expect(dialog.locator('input[autocomplete="cc-number"]')).toHaveCount(0);
+  await expect(dialog.getByLabel('Choose your pre-order').locator('option')).toHaveText([
+    'Small vase + flower — €99', 'Big vase + flower — €159', 'Flower stem — €29,90',
+  ]);
+  await expect(dialog.getByText('Estimated total: €99', { exact: true })).toBeVisible();
+  await dialog.getByLabel('Choose your pre-order').selectOption('big_vase_flower');
+  await dialog.getByRole('combobox', { name: /^Quantity/ }).selectOption('2');
+  await expect(dialog.getByText('Estimated total: €318', { exact: true })).toBeVisible();
+  await dialog.getByLabel('Choose your pre-order').selectOption('flower_stem');
+  await dialog.getByRole('combobox', { name: /^Quantity/ }).selectOption('3');
+  await expect(dialog.getByText('Estimated total: €89,70', { exact: true })).toBeVisible();
+  await expect(dialog.locator('.vv-reservation-summary')).toContainText('No payment will be made now. This is a non-binding pre-order reservation. JUSTCOLORS will contact you before confirming production, availability and payment.');
+  await dialog.getByLabel('Name', { exact: true }).fill('Test reservation');
+  await dialog.getByLabel('Email', { exact: true }).fill('test@example.test');
+  await dialog.getByLabel('I agree that JUSTCOLORS').check();
+  await dialog.getByRole('button', { name: 'Reserve without payment', exact: true }).click();
+  await expect(dialog.getByText('VV-TEST', { exact: true })).toBeVisible();
+  expect(submitted).toMatchObject({ product_type: 'flower_stem', quantity: 3 });
 });

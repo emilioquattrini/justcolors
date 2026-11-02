@@ -27,16 +27,12 @@ Da questo file si possono cambiare senza intervenire sul componente React:
 - immagini delle singole sezioni;
 - voci di navigazione;
 - link social;
-- testi della finestra di acquisto;
-- dominio Shopify e ID delle due varianti WAZP usate per il set.
+- testi e campi del modulo di prenotazione;
+- versioni, prezzi indicativi e endpoint del preorder.
 
-La landing mantiene la presentazione e la scelta della quantità sul sito VagueVase. Il pulsante apre il checkout Shopify con entrambe le varianti WAZP esistenti, senza raccogliere prenotazioni o dati personali sul sito.
+Il pulsante Pre-order apre il modulo nativo sul sito VagueVase. La prenotazione è non vincolante: non vengono richiesti dati di pagamento e non si apre il checkout Shopify.
 
-Set completo: 1 VagueVase 1 Small, Starry Night / Soft Lilac (€79), più 1 Yellow Flower Stem, Choco Brown / Lemon Yellow (€19,90). Totale prodotti: €98,90 per set. Varianti Shopify: vaso `55637478736211`, stem `55637479326035`. La quantità scelta indica il numero di set e viene applicata a entrambe le righe del checkout. Spedizione e imposte finali sono calcolate da Shopify.
-
-Entrambi i componenti sono prodotti WAZP sincronizzati e assegnati alla sede WAZP+ Fulfillment. Il checkout pubblico è stato verificato con entrambi i prodotti; non è stato effettuato alcun ordine o pagamento. Le altre versioni illustrate restano prototipi.
-
-Il pagamento finale avviene sul checkout Shopify. Il sito VagueVase resta la vetrina; questa modifica non promette un pagamento incorporato né mantiene il dominio VagueVase durante il checkout. Non modifica gli ordini o le prenotazioni già registrati.
+Il modulo invia la richiesta alla funzione esistente `vaguevase-preorder` e mostra il codice di riferimento solo dopo la conferma del salvataggio. Le versioni complete includono vaso e fiore. Prezzi e totale sono indicativi; produzione, disponibilità e condizioni finali saranno confermati prima di qualsiasi impegno di acquisto.
 
 File principali:
 
